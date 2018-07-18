@@ -1,26 +1,61 @@
 # vue-auto-storage
 
-## Project setup
+> An automatic storage plugin for Vue2.
+
+## TODO
+
+- [x] DEMO: Support automatic storage and manual recovery.
+- [ ] Define API.
+- [ ] Support automatic storage and manual recovery.
+- [ ] Support automatic storage and recovery.
+- [ ] Use localforage.js or store.js.
+- [ ] Local registration.
+- [ ] Support remove storage, automatic unwatch and destroy data.
+- [ ] Support destroy instance.
+- [ ] Support computed properties. ?
+
+## Example
+
 ```
 yarn install
-```
 
-### Compiles and hot-reloads for development
-```
 yarn run serve
 ```
 
-### Compiles and minifies for production
-```
-yarn run build
+## Install
+
+```bash
+yarn add ...
 ```
 
-### Lints and fixes files
-```
-yarn run lint
+### Global Registration
+
+Vue project, main.js
+
+```javascript
+import AutoStorage from "./lib/index";
+
+Vue.use(AutoStorage);
 ```
 
-### Run your unit tests
+### Local Registration
+
+Project files:
+
+```javascript
+import { AutoStorage } from "./lib/index";
+
+export default {
+  mixins: [AutoStorage]
+};
 ```
-yarn run test:unit
-```
+
+## Use
+
+## API
+
+## Dependence
+
+## License
+
+MIT © [zh-rocco](https://github.com/zh-rocco)
