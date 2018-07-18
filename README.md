@@ -1,6 +1,6 @@
 # vue-auto-storage
 
-> An automatic storage plugin for Vue2.
+> An automatic storage plugin for Vue2
 
 ## TODO
 
