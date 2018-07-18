@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <h2>
+      <i class="el-icon-goods"></i>
+      表单一：
+    </h2>
     <el-form ref="form"
              :model="form"
              label-width="80px">
@@ -62,11 +66,28 @@
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
+
+    <h2 style="margin-top: 40px;">
+      <i class="el-icon-goods"></i>
+      表单二：
+    </h2>
+    <el-form ref="form2"
+             :model="form2"
+             label-width="80px">
+      <el-form-item label="活动名称">
+        <el-input v-model="form2.name"></el-input>
+      </el-form-item>
+      <el-form-item label="即时配送">
+        <el-switch v-model="form2.delivery"></el-switch>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
 <script>
 export default {
+  autoStorage: ["form", "form2"],
+
   data() {
     return {
       form: {
@@ -78,7 +99,9 @@ export default {
         type: [],
         resource: "",
         desc: ""
-      }
+      },
+
+      form2: { name: "", delivery: false }
     };
   },
 
@@ -88,17 +111,7 @@ export default {
     }
   },
 
-  created() {
-    this.autoStorage.init("form");
-    this.autoStorage
-      .get("form")
-      .then(res => {
-        this.form = res;
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }
+  created() {}
 };
 </script>
 
