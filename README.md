@@ -12,6 +12,7 @@
 - [ ] Local registration.
 - [ ] Support remove storage, automatic unwatch and destroy data.
 - [ ] Support destroy instance.
+- [ ] Define and update install options.
 - [ ] Support computed properties. ?
 
 ## Example
