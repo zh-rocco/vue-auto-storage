@@ -1,7 +1,9 @@
 import debounce from "lodash/debounce";
 
 export default class AutoStorage {
-  constructor() {}
+  constructor(options) {
+    this.__options__ = options;
+  }
 
   inject($vm) {
     this.$vm = $vm;

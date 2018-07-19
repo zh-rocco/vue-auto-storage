@@ -1,8 +1,13 @@
 import applyMixin from "./mixin";
 
+let defaultOptions = {
+  prefix: "auto-storage"
+};
+
 const AutoStorage = {
-  install(Vue) {
-    applyMixin(Vue);
+  install(Vue, options = {}) {
+    Object.assign(defaultOptions, options);
+    applyMixin(Vue, defaultOptions);
   }
 };
 

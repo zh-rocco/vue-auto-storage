@@ -1,8 +1,8 @@
 import AutoStorage from "./auto-storage";
 
-export default function applyMixin(Vue) {
+export default function applyMixin(Vue, options) {
   Vue.mixin({
-    $autoStorage: new AutoStorage(),
+    $autoStorage: new AutoStorage(options),
 
     data() {
       return {};
