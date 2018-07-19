@@ -14,6 +14,7 @@
 - [ ] Support destroy instance.
 - [ ] Define and update install options.
 - [ ] Support computed properties. ?
+- [ ] Powerful logger.
 
 ## Example
 
