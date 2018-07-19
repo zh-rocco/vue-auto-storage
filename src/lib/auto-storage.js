@@ -1,43 +1,73 @@
 import debounce from "lodash/debounce";
+import { getName } from "./helper";
+
+const remove = Symbol("remove");
+const removeAll = Symbol("removeAll");
 
 export default class AutoStorage {
   constructor(options) {
-    this.__options__ = options;
+    this._options = options; // default options
+    this._watchers = {}; // stored data and it's unwatch
   }
 
-  inject($vm) {
-    this.$vm = $vm;
-  }
+  set($vm, key) {
+    if (!key) return; // invalid key
+    if (this._watchers[key]) return; // duplicate key
 
-  init(key) {
-    console.log(this);
-    const _this = this.$vm;
-    console.log(_this);
-    console.log("key:", key);
+    const _key = getName(this._options.prefix, key);
 
-    if (!key) return;
-
-    const unwatch = _this.$watch(
+    // add watcher
+    const unwatch = $vm.$watch(
       key,
       debounce(function(newVal) {
-        if (newVal) {
-          window.localStorage.setItem(key, JSON.stringify(newVal));
+        console.log("set:", _key);
+        if (getName(newVal) !== "Undefined") {
+          window.localStorage.setItem(_key, JSON.stringify(newVal));
         }
-      }, 300),
+      }, this._options.debounceTime),
       {
         deep: true
       }
     );
 
-    return unwatch;
+    this._watchers[key] = unwatch;
   }
 
   get(key) {
-    const res = window.localStorage.getItem(key);
+    const _key = getName(this._options.prefix, key);
+    const res = window.localStorage.getItem(_key);
     if (res) {
       return Promise.resolve(JSON.parse(res));
     } else {
-      return Promise.reject(`not found: ${key}`);
+      return Promise.reject(`not found: ${_key}`);
     }
+  }
+
+  [remove](key) {
+    if (!!key && key in this._watchers) {
+      this._watchers[key]();
+      delete this._watchers[key];
+    }
+  }
+
+  [removeAll]() {
+    Object.keys(this._watchers).map(key => {
+      this._watchers[key]();
+    });
+    delete this._watchers;
+    this._watchers = {};
+  }
+
+  clear(key) {
+    if (key) {
+      this[remove](key);
+    } else {
+      this[removeAll]();
+    }
+  }
+
+  destroy() {
+    this.clear();
+    delete this._options;
   }
 }

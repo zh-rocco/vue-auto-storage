@@ -1,4 +1,5 @@
 import AutoStorage from "./auto-storage";
+import { recovery } from "./helper";
 
 export default function applyMixin(Vue, options) {
   Vue.mixin({
@@ -13,14 +14,12 @@ export default function applyMixin(Vue, options) {
     beforeCreate() {
       const { autoStorage, $autoStorage } = this.$options;
       this.$autoStorage = $autoStorage;
-      this.$autoStorage.inject(this);
       if (!autoStorage) return;
-      autoStorage.forEach(element => {
-        console.log("get:", element);
+      autoStorage.forEach(key => {
         this.$autoStorage
-          .get(element)
-          .then(res => {
-            Object.assign(this[element], res);
+          .get(key)
+          .then(value => {
+            recovery(this, key, value);
           })
           .catch(err => {
             console.warn(err);
@@ -31,10 +30,13 @@ export default function applyMixin(Vue, options) {
     created() {
       const { autoStorage } = this.$options;
       if (!autoStorage) return;
-      autoStorage.forEach(element => {
-        console.log("init:", element);
-        this.$autoStorage.init(element);
+      autoStorage.forEach(key => {
+        this.$autoStorage.set(this, key);
       });
+    },
+
+    beforeDestroy() {
+      this.$autoStorage.destroy();
     }
   });
 }

@@ -1,7 +1,8 @@
 import applyMixin from "./mixin";
 
 let defaultOptions = {
-  prefix: "auto-storage"
+  prefix: "auto-storage",
+  debounceTime: 300
 };
 
 const AutoStorage = {
