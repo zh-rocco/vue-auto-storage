@@ -5,9 +5,10 @@
 ## TODO
 
 - [x] DEMO: Support automatic storage and manual recovery.
-- [ ] Define API.
-- [ ] Support automatic storage and manual recovery.
-- [ ] Support automatic storage and recovery.
+- [x] Define API.
+- [x] Support automatic storage and manual recovery.
+- [x] Support automatic storage and recovery.
+- [ ] Ensure data uniqueness.
 - [ ] Use localforage.js or store.js.
 - [ ] Local registration.
 - [ ] Support remove storage, automatic unwatch and destroy data.
