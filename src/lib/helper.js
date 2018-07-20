@@ -1,5 +1,5 @@
 export function getName(prefix, name) {
-  return `${prefix}-${name}`;
+  return prefix + "-" + name;
 }
 
 export function getType(value) {

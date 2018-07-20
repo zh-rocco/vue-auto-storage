@@ -8,25 +8,35 @@ export default class AutoStorage {
   constructor(options) {
     this._options = options; // default options
     this._watchers = {}; // stored data and it's unwatch
+    this._name = "";
+    this._prefix = "";
   }
 
-  set($vm, key) {
-    if (!key) return; // invalid key
-    if (this._watchers[key]) return; // duplicate key
+  injectName(name) {
+    this._name = name;
+    this._prefix = this._options.prefix + "-" + name;
+  }
 
-    const _key = getName(this._options.prefix, key);
+  addWatch($vm, key) {
+    if (this._watchers[key]) return; // duplicate key
+    const componentName = $vm.$options.name;
+    if (!componentName) return;
+    const _key = getName(this._prefix, key);
+
+    console.log("before add watch:", key);
 
     // add watcher
     const unwatch = $vm.$watch(
       key,
       debounce(function(newVal) {
-        console.log("set:", _key);
+        console.log("add watch:", key);
         if (getName(newVal) !== "Undefined") {
           window.localStorage.setItem(_key, JSON.stringify(newVal));
         }
       }, this._options.debounceTime),
       {
         deep: true
+        // immediate: true
       }
     );
 
@@ -34,7 +44,7 @@ export default class AutoStorage {
   }
 
   get(key) {
-    const _key = getName(this._options.prefix, key);
+    const _key = getName(this._prefix, key);
     const res = window.localStorage.getItem(_key);
     if (res) {
       return Promise.resolve(JSON.parse(res));
@@ -68,6 +78,5 @@ export default class AutoStorage {
 
   destroy() {
     this.clear();
-    delete this._options;
   }
 }

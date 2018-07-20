@@ -65,8 +65,7 @@
                   v-model="form.desc"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary"
-                   @click="onSubmit">立即创建</el-button>
+        <el-button type="primary">立即创建</el-button>
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
@@ -75,24 +74,9 @@
       <i class="el-icon-goods"></i>
       表单二：
     </h2>
-    <el-form ref="form2"
-             :model="form2"
-             label-width="80px">
-      <el-form-item label="活动名称">
-        <el-input v-model="form2.name"></el-input>
-      </el-form-item>
-      <el-form-item label="即时配送">
-        <el-switch v-model="form2.delivery"></el-switch>
-      </el-form-item>
-    </el-form>
-
-    <h2 style="margin-top: 40px;">
-      <i class="el-icon-goods"></i>
-      表单三：
-    </h2>
     <el-form label-width="80px">
       <el-form-item label="活动名称">
-        <el-input v-model="form3"></el-input>
+        <el-input v-model="form2"></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -100,6 +84,8 @@
 
 <script>
 export default {
+  name: "Demo1",
+
   autoStorage: ["form", "form2", "form3"],
 
   data() {
@@ -115,20 +101,23 @@ export default {
         desc: ""
       },
 
-      form2: { name: "", delivery: false },
-
-      form3: undefined
+      form2: undefined
     };
   },
 
-  methods: {
-    onSubmit() {
-      console.log("submit!");
-    }
+  methods: {},
+
+  beforeCreate() {
+    console.log("Demo1:", "beforeCreate");
   },
 
   created() {
+    console.log("Demo1:", "created");
     console.log(this);
+  },
+
+  beforeDestroy() {
+    console.log("Demo1:", "beforeDestroy");
   }
 };
 </script>
