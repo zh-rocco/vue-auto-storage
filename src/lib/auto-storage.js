@@ -1,8 +1,7 @@
 import debounce from "lodash/debounce";
+import store from "./store";
 import { getName } from "./helper";
-
-const remove = Symbol("remove");
-const removeAll = Symbol("removeAll");
+import * as TYPE from "./type";
 
 export default class AutoStorage {
   constructor(options) {
@@ -12,12 +11,21 @@ export default class AutoStorage {
     this._prefix = "";
   }
 
-  injectName(name) {
+  [TYPE.INJECT](name) {
     this._name = name;
     this._prefix = this._options.prefix + "-" + name;
   }
 
-  addWatch($vm, key) {
+  [TYPE.RECOVERY](key) {
+    const _key = getName(this._prefix, key);
+    return store.get(_key);
+  }
+
+  [TYPE.DESTROY]() {
+    this.unwatchAll();
+  }
+
+  watch($vm, key) {
     if (this._watchers[key]) return; // duplicate key
     const componentName = $vm.$options.name;
     if (!componentName) return;
@@ -29,10 +37,8 @@ export default class AutoStorage {
     const unwatch = $vm.$watch(
       key,
       debounce(function(newVal) {
-        console.log("add watch:", key);
-        if (getName(newVal) !== "Undefined") {
-          window.localStorage.setItem(_key, JSON.stringify(newVal));
-        }
+        console.log("run watch:", key);
+        store.set(_key, newVal);
       }, this._options.debounceTime),
       {
         deep: true
@@ -43,24 +49,14 @@ export default class AutoStorage {
     this._watchers[key] = unwatch;
   }
 
-  get(key) {
-    const _key = getName(this._prefix, key);
-    const res = window.localStorage.getItem(_key);
-    if (res) {
-      return Promise.resolve(JSON.parse(res));
-    } else {
-      return Promise.reject(`not found: ${_key}`);
-    }
-  }
-
-  [remove](key) {
+  unwatch(key) {
     if (!!key && key in this._watchers) {
       this._watchers[key]();
       delete this._watchers[key];
     }
   }
 
-  [removeAll]() {
+  unwatchAll() {
     Object.keys(this._watchers).map(key => {
       this._watchers[key]();
     });
@@ -70,13 +66,10 @@ export default class AutoStorage {
 
   clear(key) {
     if (key) {
-      this[remove](key);
+      const _key = getName(this._prefix, key);
+      store.remove(_key);
     } else {
-      this[removeAll]();
+      store.clear();
     }
-  }
-
-  destroy() {
-    this.clear();
   }
 }
