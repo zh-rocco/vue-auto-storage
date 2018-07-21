@@ -65,7 +65,8 @@
                   v-model="form.desc"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary">立即创建</el-button>
+        <el-button type="primary"
+                   @click="handleClear">清空缓存</el-button>
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
@@ -101,14 +102,14 @@ export default {
         desc: ""
       },
 
-      form2: undefined
+      form2: ""
     };
   },
 
-  methods: {},
-
-  beforeCreate() {
-    console.log("Demo1:", "beforeCreate");
+  methods: {
+    handleClear() {
+      this.$autoStorage.clear("form");
+    }
   },
 
   created() {
