@@ -21,8 +21,15 @@ export default {
     if (_storage[key]) _storage.removeItem(key);
   },
 
-  clear() {
-    _storage.clear();
+  clear(prefix) {
+    if (prefix) {
+      Object.keys(_storage).forEach(key => {
+        if (key.indexOf(prefix) !== -1) _storage.removeItem(key);
+      });
+    } else {
+      _storage.clear();
+    }
+
     return Promise.resolve();
   }
 };

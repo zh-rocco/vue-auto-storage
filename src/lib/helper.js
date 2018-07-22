@@ -1,4 +1,7 @@
-import merge from "lodash/merge";
+import get from "lodash/get";
+
+const SUPPORT_TYPES = "Number,String,Boolean,Null,Object,Array";
+const REGEX = /(\[\w+\])$/g;
 
 export function getName(prefix, name) {
   return prefix + "-" + name;
@@ -10,30 +13,36 @@ export function getType(value) {
 
 export function isStorable(value) {
   const type = getType(value);
-  return "Number,String,Boolean,Null,Object,Array".indexOf(type) !== -1;
+  return SUPPORT_TYPES.indexOf(type) !== -1;
 }
 
-export function mergeObject(object, sources) {
-  return merge(object, sources);
+export function parseObjectByString(object, string) {
+  return get(object, string);
 }
 
-// export function mergeArray(array, sources) {
-//   for (let i = 0, len = sources.length; i < len; i++) {
-//     const sourcesItem = sources[i];
-//     const type = getType(item);
+/**
+ * cut object string
+ *
+ * @export
+ * @param {string} string The Object string key need cut.
+ * @returns {array} [parentStringKey, selfStringKey]
+ * @example
+ *
+ * cutting("a.b.c")
+ * // ["a.b", "c"]
+ *
+ * cutting("a.b[3]")
+ * // ["a.b", "3"]
+ */
+export function cutting(string) {
+  if (REGEX.test(string)) {
+    // such as: "a.b[1]"
+    const index = string.lastIndexOf("[");
 
-//     switch (type) {
-//       case "Object":
-//         mergeObject();
-//         break;
-//       case "Array":
-//       case "String":
-//       case "Number":
-//       case "Undefined":
-//       case "Null":
-//         $vm[key] = value;
-//         break;
-//       default:
-//     }
-//   }
-// }
+    return [string.slice(0, index), string.slice(index + 1, -1)];
+  } else {
+    // such as: "a.b.c"
+    const index = string.lastIndexOf(".");
+    return [string.slice(0, index), string.slice(index + 1)];
+  }
+}

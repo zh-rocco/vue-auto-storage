@@ -69,7 +69,7 @@ export default class AutoStorage {
       const _key = getName(this._prefix, key);
       store.remove(_key);
     } else {
-      store.clear();
+      store.clear(this._options.prefix);
     }
   }
 }
