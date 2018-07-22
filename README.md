@@ -9,6 +9,7 @@
 - [x] Support automatic storage and manual recovery.
 - [x] Support automatic storage and recovery.
 - [ ] Ensure data uniqueness.
+- [ ] Support v-for.
 - [ ] Use localforage.js or store.js.
 - [ ] Local registration.
 - [ ] Support remove storage, automatic unwatch and destroy data.
