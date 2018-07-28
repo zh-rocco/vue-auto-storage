@@ -1,6 +1,5 @@
-import get from "lodash/get";
+import get from "lodash.get";
 
-const SUPPORT_TYPES = "Number,String,Boolean,Null,Object,Array";
 const REGEX = /(\[\w+\])$/g;
 
 export function getName(prefix, name) {
@@ -9,11 +8,6 @@ export function getName(prefix, name) {
 
 export function getType(value) {
   return Object.prototype.toString.call(value).slice(8, -1);
-}
-
-export function isStorable(value) {
-  const type = getType(value);
-  return SUPPORT_TYPES.indexOf(type) !== -1;
 }
 
 export function parseObjectByString(object, string) {

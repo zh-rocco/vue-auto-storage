@@ -1,11 +1,13 @@
-import { getType, cutting, parseObjectByString } from "./helper";
+import logger from "./logger";
 import * as TYPE from "./type";
+import AutoStorage from "./auto-storage";
+import { getType, cutting, parseObjectByString } from "./helper";
 
 const REGEX = /(\.|\[|\])/g;
 
 export function init($vm) {
   if (!$vm.$options.autoStorage) return;
-  $vm.$autoStorage = $vm.$options.$autoStorage;
+  $vm.$autoStorage = new AutoStorage($vm.__AUTO_STORAGE_OPTIONS__);
   $vm.$autoStorage[TYPE.INJECT]($vm.$options.name);
   recoveryData($vm);
   $vm.$nextTick(() => {
@@ -30,7 +32,7 @@ function recoveryData($vm) {
 
   switch (type) {
     case "Array":
-      for (const key of autoStorage) {
+      autoStorage.forEach(key => {
         $vm.$autoStorage[TYPE.RECOVERY](key)
           .then(value => {
             recovery($vm, key, value);
@@ -38,7 +40,7 @@ function recoveryData($vm) {
           .catch(() => {
             // console.warn(err);
           });
-      }
+      });
       break;
     case "Object":
       break;
@@ -49,11 +51,11 @@ function recoveryData($vm) {
 function recovery($vm, key, value) {
   if (!REGEX.test(key)) {
     // non-nested variable
-    console.log("recovery:", "[non-nested]", key);
+    logger.info("recovery", key, "[non-nested]");
     $vm[key] = value;
   } else {
     // nested variable, such as: "a.b.c", "a[1]"
-    console.log("recovery:", "[nested]", key);
+    logger.info("recovery", key, "[nested]");
     const [parentKey, selfKey] = cutting(key);
     const parentObj = parseObjectByString($vm, parentKey);
     parentObj[selfKey] = value;

@@ -46,18 +46,13 @@ export default {
     }
   },
 
-  beforeCreate() {
-    console.log("Demo2:", "beforeCreate");
-  },
+  beforeCreate() {},
 
   created() {
-    console.log("Demo2:", "created");
-    console.log(this);
+    // console.log(this);
   },
 
-  beforeDestroy() {
-    console.log("Demo2:", "beforeDestroy");
-  }
+  beforeDestroy() {}
 };
 </script>
 

@@ -1,19 +1,20 @@
-import debounce from "lodash/debounce";
 import store from "./store";
-import { getName } from "./helper";
+import logger from "./logger";
 import * as TYPE from "./type";
+import { getName } from "./helper";
+import debounce from "lodash.debounce";
 
 export default class AutoStorage {
   constructor(options) {
     this._options = options; // default options
-    this._watchers = {}; // stored data and it's unwatch
+    this._watchers = {}; // unwatch
     this._name = "";
     this._prefix = "";
   }
 
   [TYPE.INJECT](name) {
     this._name = name;
-    this._prefix = this._options.prefix + "-" + name;
+    this._prefix = this._options.prefix + name;
   }
 
   [TYPE.RECOVERY](key) {
@@ -31,19 +32,16 @@ export default class AutoStorage {
     if (!componentName) return;
     const _key = getName(this._prefix, key);
 
-    console.log("before add watch:", key);
+    logger.info("before add watch", key);
 
     // add watcher
     const unwatch = $vm.$watch(
       key,
       debounce(function(newVal) {
-        console.log("run watch:", key);
+        logger.tip("run watch", key);
         store.set(_key, newVal);
       }, this._options.debounceTime),
-      {
-        deep: true
-        // immediate: true
-      }
+      { deep: true }
     );
 
     this._watchers[key] = unwatch;
@@ -57,7 +55,7 @@ export default class AutoStorage {
   }
 
   unwatchAll() {
-    Object.keys(this._watchers).map(key => {
+    Object.keys(this._watchers).forEach(key => {
       this._watchers[key]();
     });
     delete this._watchers;

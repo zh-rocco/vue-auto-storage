@@ -99,13 +99,10 @@ export default {
   },
 
   created() {
-    console.log("Demo1:", "created");
-    console.log(this);
+    // console.log(this);
   },
 
-  beforeDestroy() {
-    console.log("Demo1:", "beforeDestroy");
-  }
+  beforeDestroy() {}
 };
 </script>
 
