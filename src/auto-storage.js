@@ -1,8 +1,8 @@
 import store from "./store";
 import logger from "./logger";
 import * as TYPE from "./type";
-import { getName } from "./helper";
-import debounce from "lodash.debounce";
+import { getName, debounce } from "./helper";
+// import debounce from "lodash.debounce";
 
 export default class AutoStorage {
   constructor(options = {}) {
