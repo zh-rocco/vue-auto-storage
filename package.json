@@ -36,10 +36,7 @@
     "node": ">=6"
   },
   "license": "MIT",
-  "dependencies": {
-    "lodash.debounce": "^4.0.8",
-    "lodash.get": "^4.4.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.54",
     "@babel/plugin-external-helpers": "^7.0.0-beta.54",
