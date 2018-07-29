@@ -7,7 +7,11 @@ const defaultOptions = {
 
 const AutoStorage = {
   install(Vue, options = {}) {
-    Vue.prototype.__AUTO_STORAGE_OPTIONS__ = Object.assign(defaultOptions, options);
+    for (const key of Object.keys(options)) {
+      defaultOptions[key] = options[key];
+    }
+
+    Vue.prototype.__AUTO_STORAGE_OPTIONS__ = defaultOptions;
     Vue.mixin(mixin);
   }
 };
@@ -17,7 +21,5 @@ if (typeof window !== "undefined" && window.Vue) {
   // Auto install in dist mode
   window.Vue.use(AutoStorage);
 }
-
-export { mixin };
 
 export default AutoStorage;

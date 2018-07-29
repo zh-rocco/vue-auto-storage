@@ -3,7 +3,7 @@ import get from "lodash.get";
 const REGEX = /(\[\w+\])$/g;
 
 export function getName(prefix, name) {
-  return prefix + "-" + name;
+  return prefix + "__" + name;
 }
 
 export function getType(value) {

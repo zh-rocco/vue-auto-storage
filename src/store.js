@@ -10,9 +10,9 @@ export default {
     const value = _storage[key];
 
     if (typeof value === "undefined") {
-      return Promise.reject(`not found: ${key}`);
+      return undefined;
     } else {
-      return Promise.resolve(JSON.parse(value));
+      return JSON.parse(value);
     }
   },
 
@@ -22,13 +22,11 @@ export default {
 
   clear(prefix) {
     if (prefix) {
-      Object.keys(_storage).forEach(key => {
+      for (const key of Object.keys(_storage)) {
         if (key.indexOf(prefix) !== -1) _storage.removeItem(key);
-      });
+      }
     } else {
       _storage.clear();
     }
-
-    return Promise.resolve();
   }
 };

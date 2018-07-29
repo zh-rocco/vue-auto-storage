@@ -9,16 +9,16 @@
 - [x] Support automatic storage and manual recovery.
 - [x] Support automatic storage and recovery.
 - [x] Ensure data uniqueness.
-- [ ] Support v-for.
-- [ ] Use localforage.js or store.js.
-- [ ] Local registration.
 - [x] Support remove storage, automatic unwatch and destroy data.
 - [x] Support destroy instance.
-- [ ] Define and update install options.
-- [ ] Support computed properties. ?
-- [ ] Powerful logger.
+- [x] Define and update install options.
 - [x] Support deep level, such as: 'someData.childData', 'someArray[2]'.
+- [ ] Support v-for.
+- [ ] Powerful logger.
+- [ ] Local registration.
 - [ ] Avoid duplication watch.
+- [ ] Use localforage.js or store.js.
+- [ ] Support computed properties. ?
 
 ## Example Or Development
 

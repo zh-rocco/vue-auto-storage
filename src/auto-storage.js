@@ -5,16 +5,16 @@ import { getName } from "./helper";
 import debounce from "lodash.debounce";
 
 export default class AutoStorage {
-  constructor(options) {
+  constructor(options = {}) {
     this._options = options; // default options
-    this._watchers = {}; // unwatch
+    this._unwatchFns = {}; // unwatch
     this._name = "";
     this._prefix = "";
   }
 
-  [TYPE.INJECT](name) {
-    this._name = name;
-    this._prefix = this._options.prefix + name;
+  [TYPE.INJECT](name = "") {
+    this._name = name.toUpperCase();
+    this._prefix = this._options.prefix + this._name;
   }
 
   [TYPE.RECOVERY](key) {
@@ -27,7 +27,7 @@ export default class AutoStorage {
   }
 
   watch($vm, key) {
-    if (this._watchers[key]) return; // duplicate key
+    if (this._unwatchFns[key]) return; // duplicate key
     const componentName = $vm.$options.name;
     if (!componentName) return;
     const _key = getName(this._prefix, key);
@@ -44,22 +44,22 @@ export default class AutoStorage {
       { deep: true }
     );
 
-    this._watchers[key] = unwatch;
+    this._unwatchFns[key] = unwatch;
   }
 
   unwatch(key) {
-    if (!!key && key in this._watchers) {
-      this._watchers[key]();
-      delete this._watchers[key];
+    if (!!key && key in this._unwatchFns) {
+      this._unwatchFns[key]();
+      delete this._unwatchFns[key];
     }
   }
 
   unwatchAll() {
-    Object.keys(this._watchers).forEach(key => {
-      this._watchers[key]();
-    });
-    delete this._watchers;
-    this._watchers = {};
+    for (const fn of Object.values(this._unwatchFns)) {
+      fn();
+    }
+    delete this._unwatchFns;
+    this._unwatchFns = {};
   }
 
   clear(key) {

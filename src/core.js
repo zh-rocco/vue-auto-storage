@@ -7,9 +7,13 @@ const REGEX = /(\.|\[|\])/g;
 
 export function init($vm) {
   if (!$vm.$options.autoStorage) return;
+  if (!$vm.$options.name || $vm.$autoStorage) return;
+
   $vm.$autoStorage = new AutoStorage($vm.__AUTO_STORAGE_OPTIONS__);
   $vm.$autoStorage[TYPE.INJECT]($vm.$options.name);
+
   recoveryData($vm);
+
   $vm.$nextTick(() => {
     addWatch($vm);
   });
@@ -32,15 +36,12 @@ function recoveryData($vm) {
 
   switch (type) {
     case "Array":
-      autoStorage.forEach(key => {
-        $vm.$autoStorage[TYPE.RECOVERY](key)
-          .then(value => {
-            recovery($vm, key, value);
-          })
-          .catch(() => {
-            // console.warn(err);
-          });
-      });
+      for (const key of autoStorage) {
+        const value = $vm.$autoStorage[TYPE.RECOVERY](key);
+        if (value !== undefined) {
+          recovery($vm, key, value);
+        }
+      }
       break;
     case "Object":
       break;
