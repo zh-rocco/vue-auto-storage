@@ -88,13 +88,13 @@ export default {
 
 | Method Description | Description                      | Parameter            |
 | ------------------ | -------------------------------- | -------------------- |
-| clear              | clear storage                    | `String | undefined` |
+| clear              | clear storage                    | `String` `undefined` |
 | unwatch            | remove an automatic storage data | `String`             |
 | watch              | add an automatic storage data    | `String`             |
 
 ## Dependence
 
-no
+none
 
 ## License
 
