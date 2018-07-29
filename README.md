@@ -1,6 +1,6 @@
 # vue-auto-storage
 
-> An automatic storage plugin for Vue2
+> An automatic storage plugin for Vue2.
 
 ## TODO
 
@@ -18,14 +18,14 @@
 - [ ] Local registration.
 - [ ] Avoid duplication watch.
 - [ ] Use localforage.js or store.js.
-- [ ] Support computed properties. ?
+- [ ] Add test.
 
 ## Example Or Development
 
 ```
 yarn install
 
-yarn run serve
+yarn serve
 ```
 
 ## Attention
@@ -35,45 +35,37 @@ Because of `localStorage`, this plugin only support some base data type: `number
 ## Install
 
 ```bash
-yarn add ...
+yarn add vue-auto-storage
 ```
 
 ### Global Registration
 
-Vue project, main.js
-
 ```javascript
-import AutoStorage from "./lib/index";
+import AutoStorage from "vue-auto-storage";
 
 Vue.use(AutoStorage);
 ```
 
 ### Local Registration
 
-Project files:
-
-```javascript
-import { AutoStorage } from "./lib/index";
-
-export default {
-  mixins: [AutoStorage]
-};
-```
+todo
 
 ## Use
 
 ### Before Use
 
 - Vue component must has a 'name'.
-- Now 'autoStorage' only support array. (object syntax will be supported in the future, then you can pass in the configuration)
+- Now 'autoStorage' only support array.
 
 ### Code Example
+
+Vue component:
 
 ```javascript
 export default {
   name: "MyComponent",
 
-  autoStorage: ["form", "form2"],
+  autoStorage: ["form", "deepObj.form"],
 
   data() {
     return {
@@ -82,23 +74,27 @@ export default {
         desc: ""
       },
 
-      form2: undefined
+      deepObj: {
+        form: ""
+      }
     };
-  },
-
-  methods: {},
-
-  beforeCreate() {},
-
-  created() {},
-
-  beforeDestroy() {}
+  }
 };
 ```
 
 ## API
 
+### methods
+
+| Method Description | Description                      | Parameter            |
+| ------------------ | -------------------------------- | -------------------- |
+| clear              | clear storage                    | `String | undefined` |
+| unwatch            | remove an automatic storage data | `String`             |
+| watch              | add an automatic storage data    | `String`             |
+
 ## Dependence
+
+no
 
 ## License
 
