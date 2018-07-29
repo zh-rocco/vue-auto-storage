@@ -1,8 +1,8 @@
 {
   "name": "vue-auto-storage",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A Vue plugin, automates storing data.",
-  "main": "src/index.js",
+  "main": "dist/vue-auto-storage.js",
   "scripts": {
     "clean": "rimraf dist",
     "dev": "npm run clean && cross-env NODE_ENV=development rollup -c scripts/rollup.config.prod.js",
@@ -12,7 +12,9 @@
     "release": "standard-version"
   },
   "files": [
-    "src/index.js"
+    "README.md",
+    "src",
+    "dist/*.js"
   ],
   "repository": {
     "type": "git",
