@@ -1,6 +1,6 @@
 # vue-auto-storage
 
-> An automatic storage plugin for Vue2.
+> An automatic storage plugin for Vue2, persist state in `data` with localStorage.
 
 ## TODO
 
@@ -20,46 +20,42 @@
 - [ ] Use localforage.js or store.js.
 - [ ] Add test.
 
-## Example Or Development
+## Demo
 
 ```
+git clone https://github.com/zh-rocco/vue-auto-storage.git
+
 yarn install
 
 yarn serve
 ```
 
-## Attention
+## Use
 
-Because of `localStorage`, this plugin only support some base data type: `number`, `string`, `boolean`, `array`, `object`. Not support `undefined`, `function`, `regex`, `Map`, `WeakMap`, `Set`, `Symbol`.
-
-## Install
+### Install
 
 ```bash
 yarn add vue-auto-storage
 ```
 
-### Global Registration
+### Registration
 
 ```javascript
 import AutoStorage from "vue-auto-storage";
 
 Vue.use(AutoStorage);
+
+// or with options
+
+Vue.use(AutoStorage, { debounce: 100 });
 ```
-
-### Local Registration
-
-todo
-
-## Use
-
-### Before Use
-
-- Vue component must has a 'name'.
-- Now 'autoStorage' only support array.
 
 ### Code Example
 
-Vue component:
+**Attention:**
+
+- Vue component must has a 'name'.
+- Now 'autoStorage' only support array.
 
 ```javascript
 export default {
@@ -78,19 +74,29 @@ export default {
         form: ""
       }
     };
-  }
+  },
+
+  created() {}
 };
 ```
 
 ## API
 
-### methods
+### Methods
 
-| Method Description | Description                      | Parameter            |
-| ------------------ | -------------------------------- | -------------------- |
-| clear              | clear storage                    | `String` `undefined` |
-| unwatch            | remove an automatic storage data | `String`             |
-| watch              | add an automatic storage data    | `String`             |
+| Method     | Description                            | Type                    |
+| ---------- | -------------------------------------- | ----------------------- |
+| clear      | Clear storage,                         | `String`                |
+| watch      | Add a watcher, to automatic store data | `String`                |
+| unwatch    | Remove a watcher                       | `String`                |
+| unwatchAll | Remove all watchers                    |                         |
+| destroy    | Destroy autoStorage instance           | `String`, no parameters |
+
+### Plugin Options
+
+| Property | Description                         | Type     | Default |
+| -------- | ----------------------------------- | -------- | ------- |
+| debounce | Debounce time of watchers. Unit: ms | `Number` | 300     |
 
 ## Dependence
 

@@ -1,19 +1,9 @@
-// import get from "lodash.get";
-
-export function getName(prefix, name) {
-  return prefix + "__" + name;
-}
-
 export function getType(value) {
   return Object.prototype.toString.call(value).slice(8, -1);
 }
 
-export function parseObjectByString(object, string) {
-  return get(object, string);
-}
-
 /**
- * cut object string
+ * Cut object string
  *
  * @export
  * @param {string} string The Object string key need cut.
@@ -21,10 +11,10 @@ export function parseObjectByString(object, string) {
  * @example
  *
  * cutting("a.b.c")
- * // ["a.b", "c"]
+ * // => ["a.b", "c"]
  *
  * cutting("a.b[3]")
- * // ["a.b", "3"]
+ * // => ["a.b", "3"]
  */
 export function cutting(string) {
   const REGEX = /(\[\w+\])$/g;
@@ -73,7 +63,7 @@ export function debounce(fn, delay = 300) {
  * get(object, 'a.b.c', 'default')
  * // => 'default'
  */
-export function get(object, path, defaultValue) {
+export function parseObjectByString(object, path, defaultValue) {
   path = path.replace(/\[(\w+)\]/g, ".$1"); // convert indexes to properties
   path = path.replace(/^\./, ""); // strip a leading dot
 

@@ -1,6 +1,8 @@
 import { init, destroy } from "./core";
 import logger from "./logger";
 
+// TODO: local registration
+
 export default {
   created() {
     try {

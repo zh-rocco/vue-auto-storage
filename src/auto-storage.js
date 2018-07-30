@@ -1,73 +1,66 @@
 import store from "./store";
 import logger from "./logger";
-import * as TYPE from "./type";
-import { getName, debounce } from "./helper";
-// import debounce from "lodash.debounce";
+import { PREFIX } from "./config";
+import { debounce } from "./helper";
 
 export default class AutoStorage {
-  constructor(options = {}) {
-    this._options = options; // default options
-    this._unwatchFns = {}; // unwatch
-    this._name = "";
-    this._prefix = "";
+  constructor($vm) {
+    this.$vm = $vm;
+    this.unwatchFns = Object.create(null);
+    this.prefix = PREFIX + $vm.$options.name + "__";
+    this.debounce = $vm.__AUTO_STORAGE_OPTIONS__.debounce;
   }
 
-  [TYPE.INJECT](name = "") {
-    this._name = name.toUpperCase();
-    this._prefix = this._options.prefix + this._name;
+  getPrefix(key) {
+    return this.prefix + key.toUpperCase();
   }
 
-  [TYPE.RECOVERY](key) {
-    const _key = getName(this._prefix, key);
+  recovery(key) {
+    const _key = this.getPrefix(key);
     return store.get(_key);
   }
 
-  [TYPE.DESTROY]() {
-    this.unwatchAll();
-  }
+  watch(key) {
+    if (!key) return;
+    if (this.unwatchFns[key]) return;
+    const _key = this.getPrefix(key);
 
-  watch($vm, key) {
-    if (this._unwatchFns[key]) return; // duplicate key
-    const componentName = $vm.$options.name;
-    if (!componentName) return;
-    const _key = getName(this._prefix, key);
-
-    logger.info("before add watch", key);
+    logger.info("before add watch", this.$vm.$options.name, key);
 
     // add watcher
-    const unwatch = $vm.$watch(
+    this.unwatchFns[key] = this.$vm.$watch(
       key,
-      debounce(function(newVal) {
-        logger.tip("run watch", key);
+      debounce(newVal => {
+        logger.tip("run watch", this.$vm.$options.name, key);
         store.set(_key, newVal);
-      }, this._options.debounceTime),
+      }, this.debounce),
       { deep: true }
     );
-
-    this._unwatchFns[key] = unwatch;
   }
 
   unwatch(key) {
-    if (!!key && key in this._unwatchFns) {
-      this._unwatchFns[key]();
-      delete this._unwatchFns[key];
+    if (key && key in this.unwatchFns) {
+      this.unwatchFns[key]();
+      delete this.unwatchFns[key];
     }
   }
 
   unwatchAll() {
-    for (const fn of Object.values(this._unwatchFns)) {
-      fn();
+    for (const key in this.unwatchFns) {
+      this.unwatchFns[key]();
     }
-    delete this._unwatchFns;
-    this._unwatchFns = {};
+    delete this.unwatchFns;
+    this.unwatchFns = Object.create(null);
   }
 
   clear(key) {
-    if (key) {
-      const _key = getName(this._prefix, key);
-      store.remove(_key);
-    } else {
-      store.clear(this._options.prefix);
-    }
+    key ? store.remove(this.getPrefix(key)) : store.clear(PREFIX);
+  }
+
+  destroy() {
+    this.unwatchAll();
+    delete this.$vm;
+    delete this.prefix;
+    delete this.debounce;
   }
 }

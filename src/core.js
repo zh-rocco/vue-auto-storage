@@ -1,5 +1,4 @@
 import logger from "./logger";
-import * as TYPE from "./type";
 import AutoStorage from "./auto-storage";
 import { getType, cutting, parseObjectByString } from "./helper";
 
@@ -7,10 +6,10 @@ const REGEX = /(\.|\[|\])/g;
 
 export function init($vm) {
   if (!$vm.$options.autoStorage) return;
-  if (!$vm.$options.name || $vm.$autoStorage) return;
+  if (!$vm.$options.name) return;
+  if ($vm.$autoStorage) return;
 
-  $vm.$autoStorage = new AutoStorage($vm.__AUTO_STORAGE_OPTIONS__);
-  $vm.$autoStorage[TYPE.INJECT]($vm.$options.name);
+  $vm.$autoStorage = new AutoStorage($vm);
 
   recoveryData($vm);
 
@@ -20,7 +19,10 @@ export function init($vm) {
 }
 
 export function destroy($vm) {
-  $vm.$autoStorage && $vm.$autoStorage[TYPE.DESTROY]();
+  if ($vm.$autoStorage) {
+    $vm.$autoStorage.destroy();
+    delete $vm.$autoStorage;
+  }
 }
 
 /**
@@ -37,7 +39,7 @@ function recoveryData($vm) {
   switch (type) {
     case "Array":
       for (const key of autoStorage) {
-        const value = $vm.$autoStorage[TYPE.RECOVERY](key);
+        const value = $vm.$autoStorage.recovery(key);
         if (value !== undefined) {
           recovery($vm, key, value);
         }
@@ -78,7 +80,7 @@ function addWatch($vm) {
     case "Array":
       for (const key of autoStorage) {
         if (typeof parseObjectByString($vm, key) === "undefined") continue;
-        $vm.$autoStorage.watch($vm, key);
+        $vm.$autoStorage.watch(key);
       }
       break;
     case "Object":

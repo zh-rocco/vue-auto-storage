@@ -1,13 +1,12 @@
 import mixin from "./mixin";
 
 const defaultOptions = {
-  prefix: "__AUTO_STORAGE__",
-  debounceTime: 300
+  debounce: 300
 };
 
 const AutoStorage = {
   install(Vue, options = {}) {
-    for (const key of Object.keys(options)) {
+    for (const key in options) {
       defaultOptions[key] = options[key];
     }
 
