@@ -4,11 +4,10 @@
   "description": "A Vue plugin, automates storing data.",
   "main": "dist/vue-auto-storage.min.js",
   "scripts": {
-    "clean": "rimraf dist",
-    "dev": "npm run clean && cross-env NODE_ENV=development rollup -c scripts/rollup.config.prod.js",
-    "build": "npm run clean && cross-env NODE_ENV=production rollup -c scripts/rollup.config.prod.js",
-    "start": "npm run build",
-    "serve": "vue-cli-service serve",
+    "dev": "rimraf dist && cross-env NODE_ENV=development rollup -c scripts/rollup.config.prod.js",
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup -c scripts/rollup.config.prod.js",
+    "dev:demo": "vue-cli-service serve",
+    "build:demo": "rimraf docs && vue-cli-service build",
     "release": "standard-version"
   },
   "files": [

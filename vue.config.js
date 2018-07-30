@@ -1,6 +1,6 @@
 module.exports = {
-  baseUrl: "/",
-  outputDir: ".demo",
+  baseUrl: process.env.NODE_ENV === "production" ? "/vue-auto-storage/" : "/",
+  outputDir: "docs",
   pages: {
     index: {
       entry: "examples/main.js",
