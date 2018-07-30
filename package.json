@@ -1,6 +1,6 @@
 {
   "name": "vue-auto-storage",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "A Vue plugin, automates storing data.",
   "main": "dist/vue-auto-storage.min.js",
   "scripts": {
