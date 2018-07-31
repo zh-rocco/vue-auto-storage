@@ -13,40 +13,12 @@ const banner = ` /*!
   */\n`;
 
 export default [
-  // .js, .cjs.js, .esm.js
-  {
-    ...BaseConfig,
-    output: [
-      // umd development version
-      {
-        file: `dist/${name}.js`,
-        format: "umd",
-        name: capitalize(name),
-        banner
-      },
-      // cjs and esm version
-      {
-        file: `dist/${name}.cjs.js`,
-        format: "cjs",
-        banner
-      },
-      // cjs and esm version
-      {
-        file: `dist/${name}.esm.js`,
-        format: "es",
-        banner
-      }
-    ],
-    plugins: [...BaseConfig.plugins, filesize()]
-  },
-
-  // .min.js
   {
     ...BaseConfig,
     output: [
       // umd with compress version
       {
-        file: `dist/${name}.min.js`,
+        file: `dist/${name}.js`,
         format: "umd",
         name: capitalize(name)
       }
