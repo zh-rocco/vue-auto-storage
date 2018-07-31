@@ -12,7 +12,7 @@ export default class AutoStorage {
   }
 
   getPrefix(key) {
-    return this.prefix + key.toUpperCase();
+    return (this.prefix + key).toUpperCase();
   }
 
   recovery(key) {
