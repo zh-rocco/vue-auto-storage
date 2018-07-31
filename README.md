@@ -17,62 +17,75 @@
 - [ ] Powerful logger.
 - [ ] Local registration.
 - [ ] Avoid duplication watch.
-- [ ] Use localforage.js or store.js.
+- [ ] Customize storage.
 - [ ] Add test.
 
 ## Demo
 
-```
-git clone https://github.com/zh-rocco/vue-auto-storage.git
+[Demo](https://zh-rocco.github.io/vue-auto-storage/)
 
-yarn install
+## Requirements
 
-yarn serve
-```
+- [Vue.js](https://cn.vuejs.org/) 2.x
 
-## Use
+## Attention
 
-### Install
+Obey the following:
+
+- Vue component must has a `name` field.
+- Now `autoStorage` only support array syntax (`Array<string>`).
+
+## Installation
 
 ```bash
 yarn add vue-auto-storage
 ```
 
+## Usage
+
 ### Registration
 
+main.js
+
 ```javascript
+import Vue from "vue";
+import App from "./App.vue";
 import AutoStorage from "vue-auto-storage";
 
 Vue.use(AutoStorage);
 
 // or with options
 
-Vue.use(AutoStorage, { debounce: 100 });
+// Vue.use(AutoStorage, { debounce: 100 });
+
+new Vue({
+  render: h => h(App)
+}).$mount("#app");
 ```
 
-### Code Example
+### Example
 
-**Attention:**
+Add `autoStorage` filed to Vue component's options object.
 
-- Vue component must has a 'name'.
-- Now 'autoStorage' only support array.
+| Description                              | Type            |
+| ---------------------------------------- | --------------- |
+| Declare the keypath you want to persist. | `Array<string>` |
 
 ```javascript
 export default {
-  name: "MyComponent",
+  name: "ComponentName",
 
-  autoStorage: ["form", "deepObj.form"],
+  autoStorage: ["form", "a.b", "c[0].d"],
 
   data() {
     return {
-      form: {
-        region: "",
-        desc: ""
-      },
+      form: { region: "", desc: "" },
 
-      deepObj: {
-        form: ""
-      }
+      a: { b: "" },
+
+      c: [{ d: "" }, { e: "" }],
+
+      g: "
     };
   },
 
@@ -80,23 +93,23 @@ export default {
 };
 ```
 
-## API
+## Methods
 
-### Methods
+| Function   | Description                                                   | Parameters            | Example                             |
+| ---------- | ------------------------------------------------------------- | --------------------- | ----------------------------------- |
+| clear      | Clear storage. If no parameters, clear all AutoStorage cache. | `name: string`, `N/A` | `this.$autoStorage.clear("a.b")`    |
+| watch      | Add a watcher, to automatic store data                        | `name: string`        | `this.$autoStorage.watch("g")`      |
+| unwatch    | Remove a watcher                                              | `name: string`        | `this.$autoStorage.unwatch("form")` |
+| unwatchAll | Remove all watchers                                           | `N/A`                 | `this.$autoStorage.unwatchAll()`    |
+| destroy    | Destroy autoStorage instance                                  | `N/A`                 | `this.$autoStorage.destroy()`       |
 
-| Method     | Description                            | Type                    |
-| ---------- | -------------------------------------- | ----------------------- |
-| clear      | Clear storage,                         | `String`                |
-| watch      | Add a watcher, to automatic store data | `String`                |
-| unwatch    | Remove a watcher                       | `String`                |
-| unwatchAll | Remove all watchers                    |                         |
-| destroy    | Destroy autoStorage instance           | `String`, no parameters |
+## Plugin Configurations
 
-### Plugin Options
+| Property | Description                         | Type   | Default |
+| -------- | ----------------------------------- | ------ | ------- |
+| debounce | Debounce time of watchers. Unit: ms | Number | 300     |
 
-| Property | Description                         | Type     | Default |
-| -------- | ----------------------------------- | -------- | ------- |
-| debounce | Debounce time of watchers. Unit: ms | `Number` | 300     |
+Stay tuned for more configurations,
 
 ## Dependence
 
