@@ -7,5 +7,12 @@ module.exports = {
       template: "examples/public/index.html",
       filename: "index.html"
     }
+  },
+  configureWebpack: {
+    externals: {
+      vue: "Vue",
+      "vue-router": "VueRouter",
+      "element-ui": "ELEMENT"
+    }
   }
 };

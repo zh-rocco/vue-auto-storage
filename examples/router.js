@@ -1,9 +1,9 @@
-import Vue from "vue";
+// import Vue from "vue";
 import Router from "vue-router";
 import Demo1 from "./components/Demo1";
 import Demo2 from "./components/Demo2";
 
-Vue.use(Router);
+// Vue.use(Router);
 
 export default new Router({
   routes: [

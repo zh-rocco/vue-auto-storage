@@ -47,7 +47,6 @@
     "@vue/cli-service": "^3.0.0-rc.8",
     "babel-eslint": "^8.2.6",
     "cross-env": "^5.2.0",
-    "element-ui": "^2.4.5",
     "eslint": "^5.2.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.13.0",
@@ -65,8 +64,6 @@
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-uglify": "^4.0.0",
     "standard-version": "^4.4.0",
-    "uglify-es": "^3.3.9",
-    "vue": "^2.5.16",
-    "vue-router": "^3.0.1"
+    "uglify-es": "^3.3.9"
   }
 }
