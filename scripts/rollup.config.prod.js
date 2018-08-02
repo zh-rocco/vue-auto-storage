@@ -6,6 +6,11 @@ import { minify } from "uglify-es";
 import BaseConfig from "./rollup.config.base";
 import { name, version, author } from "../package.json";
 
+const capitalizeName = name
+  .split("-")
+  .map(val => capitalize(val))
+  .join("");
+
 const banner = ` /*!
   * ${name}.js v${version}
   * (c) ${new Date().getFullYear()} ${typeof author === "object" ? author.name : author}
@@ -20,7 +25,7 @@ export default [
       {
         file: `dist/${name}.js`,
         format: "umd",
-        name: capitalize(name)
+        name: capitalizeName
       }
     ],
     plugins: [
