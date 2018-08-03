@@ -1,5 +1,4 @@
 import { init, destroy } from "./core";
-import logger from "./logger";
 
 // TODO: local registration
 
@@ -8,7 +7,7 @@ export default {
     try {
       init(this);
     } catch (err) {
-      logger.warn(err);
+      console.error(err);
     }
   },
 

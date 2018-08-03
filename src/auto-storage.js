@@ -1,5 +1,4 @@
 import store from "./store";
-import logger from "./logger";
 import { PREFIX } from "./config";
 import { debounce } from "./helper";
 
@@ -25,13 +24,10 @@ export default class AutoStorage {
     if (this.unwatchFns[key]) return;
     const _key = this.getPrefix(key);
 
-    logger.info("before add watch", this.$vm.$options.name, key);
-
     // add watcher
     this.unwatchFns[key] = this.$vm.$watch(
       key,
       debounce(newVal => {
-        logger.tip("run watch", this.$vm.$options.name, key);
         store.setItem(_key, newVal);
       }, this.debounce),
       { deep: true }

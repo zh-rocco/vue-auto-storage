@@ -1,11 +1,10 @@
-import logger from "./logger";
 import AutoStorage from "./auto-storage";
 import { getType, cutting, parseObjectByString } from "./helper";
 
 const REGEX = /(\.|\[|\])/g;
 
 export function init($vm) {
-  if (!$vm.$options.autoStorage) return;
+  if (getType($vm.$options.autoStorage) !== "Array") return;
   if (!$vm.$options.name) return;
   if ($vm.$autoStorage) return;
 
@@ -54,11 +53,9 @@ function recoveryData($vm) {
 function recovery($vm, key, value) {
   if (!REGEX.test(key)) {
     // non-nested variable
-    logger.info("recovery", key, "[non-nested]");
     $vm[key] = value;
   } else {
     // nested variable, such as: "a.b.c", "a[1]"
-    logger.info("recovery", key, "[nested]");
     const [parentKey, selfKey] = cutting(key);
     const parentObj = parseObjectByString($vm, parentKey);
     parentObj[selfKey] = value;
