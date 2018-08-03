@@ -1,7 +1,7 @@
 import AutoStorage from "./auto-storage";
 import { getType, cuttingKeyPath, parseObjectByKeyPath } from "./helper";
 
-const REGEX = /(\.|\[|\])/g;
+const NO_NESTED_REGEX = /(\.|\[|\])/g;
 
 export function init($vm) {
   if (getType($vm.$options.autoStorage) !== "Array") return;
@@ -11,48 +11,40 @@ export function init($vm) {
   $vm.$autoStorage = new AutoStorage($vm);
 
   recoveryData($vm);
-
-  $vm.$nextTick(() => {
-    addWatch($vm);
-  });
+  addWatch($vm);
 }
 
 export function destroy($vm) {
-  if ($vm.$autoStorage) {
-    $vm.$autoStorage.destroy();
-    delete $vm.$autoStorage;
+  if (!$vm.$autoStorage) return;
+
+  $vm.$autoStorage.destroy();
+  delete $vm.$autoStorage;
+}
+
+/**
+ * recovery [autoStorage] data
+ */
+function recoveryData($vm) {
+  const autoStorage = $vm.$options.autoStorage;
+  for (const key of autoStorage) {
+    const value = $vm.$autoStorage.recovery(key);
+    if (value === undefined) continue;
+    recovery($vm, key, value);
   }
 }
 
 /**
- * recovery data for [autoStorage]
+ * recovery
  *
  * @export
- * @param {*} $vm Vue instance
+ * @param {object} $vm Vue instance
+ * @param {string} key
+ * @param {*} value
  * @returns void
  */
-function recoveryData($vm) {
-  const autoStorage = $vm.$options.autoStorage;
-  const type = getType(autoStorage);
-
-  switch (type) {
-    case "Array":
-      for (const key of autoStorage) {
-        const value = $vm.$autoStorage.recovery(key);
-        if (value !== undefined) {
-          recovery($vm, key, value);
-        }
-      }
-      break;
-    case "Object":
-      break;
-    default:
-  }
-}
-
 function recovery($vm, key, value) {
-  if (!REGEX.test(key)) {
-    // non-nested variable
+  if (!NO_NESTED_REGEX.test(key)) {
+    // non-nested variable, such as: "a", "b"
     $vm[key] = value;
   } else {
     // nested variable, such as: "a.b.c", "a[1]"
@@ -64,24 +56,11 @@ function recovery($vm, key, value) {
 
 /**
  * add watch for [autoStorage]
- *
- * @export
- * @param {object} $vm Vue instance
- * @returns void
  */
 function addWatch($vm) {
   const autoStorage = $vm.$options.autoStorage;
-  const type = getType(autoStorage);
-
-  switch (type) {
-    case "Array":
-      for (const key of autoStorage) {
-        if (typeof parseObjectByKeyPath($vm, key) === "undefined") continue;
-        $vm.$autoStorage.watch(key);
-      }
-      break;
-    case "Object":
-      break;
-    default:
+  for (const key of autoStorage) {
+    if (parseObjectByKeyPath($vm, key) === undefined) continue;
+    $vm.$autoStorage.watch(key);
   }
 }
