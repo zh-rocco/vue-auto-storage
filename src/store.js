@@ -1,23 +1,20 @@
 const _storage = window.localStorage;
 
 export default {
-  set(key, value) {
-    _storage.setItem(key, JSON.stringify(value || null));
+  setItem(key, value) {
+    // if value is undefined, convert to null
+    // JSON.parse(JSON.stringify(undefined)) => SyntaxError
+    _storage.setItem(key, JSON.stringify(value === undefined ? null : value));
   },
 
-  get(key) {
-    // if [key] not exist in _storage, _storage[key] is undefined, but _storage.getItem(key) is null.
+  getItem(key) {
+    // if [key] not exist in localStorage, localStorage[key] get undefined, but localStorage.getItem(key) get null.
     const value = _storage[key];
-
-    if (typeof value === "undefined") {
-      return undefined;
-    } else {
-      return JSON.parse(value);
-    }
+    return value === undefined ? undefined : JSON.parse(value);
   },
 
-  remove(key) {
-    if (_storage[key]) _storage.removeItem(key);
+  removeItem(key) {
+    _storage.removeItem(key);
   },
 
   clear(prefix) {

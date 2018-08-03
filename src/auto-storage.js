@@ -17,7 +17,7 @@ export default class AutoStorage {
 
   recovery(key) {
     const _key = this.getPrefix(key);
-    return store.get(_key);
+    return store.getItem(_key);
   }
 
   watch(key) {
@@ -32,7 +32,7 @@ export default class AutoStorage {
       key,
       debounce(newVal => {
         logger.tip("run watch", this.$vm.$options.name, key);
-        store.set(_key, newVal);
+        store.setItem(_key, newVal);
       }, this.debounce),
       { deep: true }
     );
@@ -54,7 +54,7 @@ export default class AutoStorage {
   }
 
   clear(key) {
-    key ? store.remove(this.getPrefix(key)) : store.clear(PREFIX);
+    key ? store.removeItem(this.getPrefix(key)) : store.clear(PREFIX);
   }
 
   destroy() {
