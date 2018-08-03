@@ -10,13 +10,13 @@ export function getType(value) {
  * @returns {array} [parentStringKey, selfStringKey]
  * @example
  *
- * cutting("a.b.c")
+ * cuttingKeyPath("a.b.c")
  * // => ["a.b", "c"]
  *
- * cutting("a.b[3]")
+ * cuttingKeyPath("a.b[3]")
  * // => ["a.b", "3"]
  */
-export function cutting(string) {
+export function cuttingKeyPath(string) {
   const REGEX = /(\[\w+\])$/g;
   if (REGEX.test(string)) {
     // such as: "a.b[1]"
@@ -63,7 +63,7 @@ export function debounce(fn, delay = 300) {
  * get(object, 'a.b.c', 'default')
  * // => 'default'
  */
-export function parseObjectByString(object, path, defaultValue) {
+export function parseObjectByKeyPath(object, path, defaultValue) {
   path = path.replace(/\[(\w+)\]/g, ".$1"); // convert indexes to properties
   path = path.replace(/^\./, ""); // strip a leading dot
 

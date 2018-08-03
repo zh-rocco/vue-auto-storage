@@ -1,5 +1,5 @@
 import AutoStorage from "./auto-storage";
-import { getType, cutting, parseObjectByString } from "./helper";
+import { getType, cuttingKeyPath, parseObjectByKeyPath } from "./helper";
 
 const REGEX = /(\.|\[|\])/g;
 
@@ -56,8 +56,8 @@ function recovery($vm, key, value) {
     $vm[key] = value;
   } else {
     // nested variable, such as: "a.b.c", "a[1]"
-    const [parentKey, selfKey] = cutting(key);
-    const parentObj = parseObjectByString($vm, parentKey);
+    const [parentKey, selfKey] = cuttingKeyPath(key);
+    const parentObj = parseObjectByKeyPath($vm, parentKey);
     parentObj[selfKey] = value;
   }
 }
@@ -76,7 +76,7 @@ function addWatch($vm) {
   switch (type) {
     case "Array":
       for (const key of autoStorage) {
-        if (typeof parseObjectByString($vm, key) === "undefined") continue;
+        if (typeof parseObjectByKeyPath($vm, key) === "undefined") continue;
         $vm.$autoStorage.watch(key);
       }
       break;
