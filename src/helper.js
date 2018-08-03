@@ -1,4 +1,4 @@
-function canWriteStorage(storage) {
+export function canWriteStorage(storage) {
   try {
     storage.setItem("@@", 1);
     if (storage.getItem("@@") !== 1) {

@@ -1,5 +1,4 @@
-// export const INJECT = Symbol("inject");
-
-// export const RECOVERY = Symbol("recovery");
-
-// export const DESTROY = Symbol("destroy");
+export const STORAGE = Symbol("STORAGE");
+export const UNWATCH_FNS = Symbol("UNWATCH_FNS");
+export const PREFIX = Symbol("PREFIX");
+export const DEBOUNCE_TIME = Symbol("DEBOUNCE_TIME");

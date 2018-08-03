@@ -27,7 +27,7 @@ export function destroy($vm) {
 function recoveryData($vm) {
   const autoStorage = $vm.$options.autoStorage;
   for (const key of autoStorage) {
-    const value = $vm.$autoStorage.recovery(key);
+    const value = $vm.$autoStorage.getItem(key);
     if (value === undefined) continue;
     recovery($vm, key, value);
   }

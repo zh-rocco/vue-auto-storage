@@ -1,62 +1,63 @@
-import store from "./store";
-import { PREFIX } from "./config";
+import * as TYPES from "./type";
 import { debounce } from "./helper";
+
+const DEFAULT_PREFIX = "__AUTO_STORAGE__";
 
 export default class AutoStorage {
   constructor($vm) {
     this.$vm = $vm;
-    this.unwatchFns = Object.create(null);
-    this.prefix = PREFIX + $vm.$options.name + "__";
-    this.debounce = $vm.__AUTO_STORAGE_OPTIONS__.debounce;
+    this[TYPES.UNWATCH_FNS] = Object.create(null);
+    this[TYPES.STORAGE] = $vm.__AUTO_STORAGE_OPTIONS__.storage;
+    this[TYPES.DEBOUNCE_TIME] = $vm.__AUTO_STORAGE_OPTIONS__.debounce;
+    this[TYPES.PREFIX] = DEFAULT_PREFIX + $vm.$options.name.toUpperCase() + "__";
   }
 
-  getPrefix(key) {
-    return (this.prefix + key).toUpperCase();
+  getName(key) {
+    return this[TYPES.PREFIX] + key.toUpperCase();
   }
 
-  recovery(key) {
-    const _key = this.getPrefix(key);
-    return store.getItem(_key);
+  getItem(key) {
+    return this[TYPES.STORAGE].getItem(this.getName(key));
   }
 
   watch(key) {
     if (!key) return;
-    if (this.unwatchFns[key]) return;
-    const _key = this.getPrefix(key);
+    if (this[TYPES.UNWATCH_FNS][key]) return;
 
     // add watcher
-    this.unwatchFns[key] = this.$vm.$watch(
+    this[TYPES.UNWATCH_FNS][key] = this.$vm.$watch(
       key,
       debounce(newVal => {
-        store.setItem(_key, newVal);
-      }, this.debounce),
+        this[TYPES.STORAGE].setItem(this.getName(key), newVal);
+      }, this[TYPES.DEBOUNCE_TIME]),
       { deep: true }
     );
   }
 
   unwatch(key) {
-    if (key && key in this.unwatchFns) {
-      this.unwatchFns[key]();
-      delete this.unwatchFns[key];
+    if (key === undefined) {
+      for (const key in this[TYPES.UNWATCH_FNS]) {
+        this[TYPES.UNWATCH_FNS][key]();
+      }
+      delete this[TYPES.UNWATCH_FNS];
+      this[TYPES.UNWATCH_FNS] = Object.create(null);
+    } else if (key && key in this[TYPES.UNWATCH_FNS]) {
+      this[TYPES.UNWATCH_FNS][key]();
+      delete this[TYPES.UNWATCH_FNS][key];
     }
-  }
-
-  unwatchAll() {
-    for (const key in this.unwatchFns) {
-      this.unwatchFns[key]();
-    }
-    delete this.unwatchFns;
-    this.unwatchFns = Object.create(null);
   }
 
   clear(key) {
-    key ? store.removeItem(this.getPrefix(key)) : store.clear(PREFIX);
+    key === undefined
+      ? this[TYPES.STORAGE].removeItem(this.getName(key))
+      : this[TYPES.STORAGE].clear(DEFAULT_PREFIX);
   }
 
   destroy() {
-    this.unwatchAll();
+    this.unwatch();
     delete this.$vm;
-    delete this.prefix;
-    delete this.debounce;
+    delete this[TYPES.PREFIX];
+    delete this[TYPES.STORAGE];
+    delete this[TYPES.DEBOUNCE_TIME];
   }
 }
