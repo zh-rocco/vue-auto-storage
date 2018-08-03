@@ -48,7 +48,7 @@ export default class AutoStorage {
   }
 
   clear(key) {
-    key === undefined
+    key
       ? this[TYPES.STORAGE].removeItem(this.getName(key))
       : this[TYPES.STORAGE].clear(DEFAULT_PREFIX);
   }
