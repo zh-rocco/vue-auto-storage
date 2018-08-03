@@ -1,3 +1,16 @@
+function canWriteStorage(storage) {
+  try {
+    storage.setItem("@@", 1);
+    if (storage.getItem("@@") !== 1) {
+      return false;
+    }
+    storage.removeItem("@@");
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 export function getType(value) {
   return Object.prototype.toString.call(value).slice(8, -1);
 }
