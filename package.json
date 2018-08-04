@@ -4,6 +4,7 @@
   "description": "An automatic storage plugin for Vue2, persist state in `data` with localStorage.",
   "main": "dist/vue-auto-storage.js",
   "module": "src/index.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "dev": "rimraf dist && cross-env NODE_ENV=development rollup -c scripts/rollup.config.prod.js",
     "build": "rimraf dist && cross-env NODE_ENV=production rollup -c scripts/rollup.config.prod.js",
@@ -15,7 +16,8 @@
   "files": [
     "README.md",
     "src",
-    "dist/*.js"
+    "dist/*.js",
+    "types/*.d.ts"
   ],
   "repository": {
     "type": "git",
