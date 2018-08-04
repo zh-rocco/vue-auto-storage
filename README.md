@@ -14,15 +14,11 @@
 - [x] Define and update install options.
 - [x] Support deep level, such as: 'someData.childData', 'someArray[2]'.
 - [x] Customize storage.
+- [x] Add test.
 - [ ] ~~Support v-for.~~
 - [ ] ~~Local registration.~~
 - [ ] Powerful logger.
 - [ ] Avoid duplication watch.
-- [ ] Add test.
-
-## Demo
-
-[Demo](https://zh-rocco.github.io/vue-auto-storage/)
 
 ## Requirements
 
