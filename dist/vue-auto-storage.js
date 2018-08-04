@@ -1,5 +1,5 @@
  /*!
-  * vue-auto-storage.js v0.4.0
+  * vue-auto-storage.js v1.0.0
   * (c) 2018 Rocco Mormont
   * @license MIT
   */
