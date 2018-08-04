@@ -1,5 +1,5 @@
 import mixin from "./mixin";
-import storage from "./store";
+import storage from "./better-storage";
 import { canWriteStorage } from "./helper";
 
 const DEFAULT_OPTIONS = {
@@ -7,7 +7,7 @@ const DEFAULT_OPTIONS = {
   storage
 };
 
-const AutoStorage = {
+const VueAutoStorage = {
   install(Vue, options = {}) {
     for (const key in options) {
       DEFAULT_OPTIONS[key] = options[key];
@@ -26,7 +26,7 @@ const AutoStorage = {
 /* istanbul ignore if */
 if (typeof window !== "undefined" && window.Vue) {
   // Auto install in dist mode
-  window.Vue.use(AutoStorage);
+  window.Vue.use(VueAutoStorage);
 }
 
-export default AutoStorage;
+export default VueAutoStorage;

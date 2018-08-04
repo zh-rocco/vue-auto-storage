@@ -1,7 +1,7 @@
 import * as TYPES from "./type";
 import { debounce } from "./helper";
 
-const DEFAULT_PREFIX = "__AUTO_STORAGE__";
+const NAMESPACES = "__AUTO_STORAGE__";
 
 export default class AutoStorage {
   constructor($vm) {
@@ -9,7 +9,7 @@ export default class AutoStorage {
     this[TYPES.UNWATCH_FNS] = Object.create(null);
     this[TYPES.STORAGE] = $vm.__AUTO_STORAGE_OPTIONS__.storage;
     this[TYPES.DEBOUNCE_TIME] = $vm.__AUTO_STORAGE_OPTIONS__.debounce;
-    this[TYPES.PREFIX] = DEFAULT_PREFIX + $vm.$options.name.toUpperCase() + "__";
+    this[TYPES.PREFIX] = NAMESPACES + $vm.$options.name.toUpperCase() + "__";
   }
 
   getName(key) {
@@ -48,9 +48,7 @@ export default class AutoStorage {
   }
 
   clear(key) {
-    key
-      ? this[TYPES.STORAGE].removeItem(this.getName(key))
-      : this[TYPES.STORAGE].clear(DEFAULT_PREFIX);
+    key ? this[TYPES.STORAGE].removeItem(this.getName(key)) : this[TYPES.STORAGE].clear(NAMESPACES);
   }
 
   destroy() {
