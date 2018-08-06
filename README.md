@@ -100,10 +100,10 @@ export default {
 
 ## Plugin Configurations
 
-| Property | Description                                | Type     | Default                                                                                          |
-| :------- | :----------------------------------------- | :------- | :----------------------------------------------------------------------------------------------- |
-| debounce | Debounce time of watchers, unit: `ms`.     | `Number` | 300                                                                                              |
-| storage  | Any object following the Storage protocol. | `Object` | [Customized localStorage](https://github.com/zh-rocco/vue-auto-storage/blob/master/src/store.js) |
+| Property | Description                                | Type     | Default                                                                                                 |
+| :------- | :----------------------------------------- | :------- | :------------------------------------------------------------------------------------------------------ |
+| debounce | Debounce time of watchers, unit: `ms`.     | `Number` | 300                                                                                                     |
+| storage  | Any object following the Storage protocol. | `Object` | [Customized localStorage](https://github.com/zh-rocco/vue-auto-storage/blob/master/src/better-store.js) |
 
 Stay tuned for more configurations,
 

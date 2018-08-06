@@ -1,4 +1,4 @@
-interface CustomStorage {
+interface BetterStorage {
   getItem: (key: string) => any;
   setItem: (key: string, value: any) => void;
   removeItem: (key?: string) => void;
@@ -7,5 +7,5 @@ interface CustomStorage {
 
 interface Options {
   debounce?: number;
-  storage?: CustomStorage;
+  storage?: BetterStorage;
 }
