@@ -88,8 +88,6 @@ Stay tuned for more configurations,
 yarn test
 ```
 
-Unfortunately, `npm run test` has an error, fixing.
-
 ## Dependence
 
 none

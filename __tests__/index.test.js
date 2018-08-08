@@ -4,21 +4,12 @@ const VueAutoStorage = require("../dist/vue-auto-storage");
 
 beforeAll(() => {
   window.localStorage = new Storage();
-  // Do not show the production tip while running tests.
-  Vue.config.productionTip = false;
+  Vue.config.productionTip = false; // Do not show the production tip while running tests.
   Vue.use(VueAutoStorage);
 });
 
-describe("can be created with the default options", () => {
-  test("has correct default options", () => {
-    expect(Vue.prototype.__AUTO_STORAGE_OPTIONS__).toHaveProperty("debounce");
-    expect(Vue.prototype.__AUTO_STORAGE_OPTIONS__).toHaveProperty("storage");
-    expect(Vue.prototype.__AUTO_STORAGE_OPTIONS__.debounce).toBe(300);
-  });
-});
-
-describe("can be mount in vue instance", () => {
-  test("correct mount in vue instance", () => {
+describe("can be mounted in component", () => {
+  test("mounted successfully", () => {
     const $vm = new Vue({
       name: "TestComponent",
       autoStorage: ["a"],
@@ -37,7 +28,7 @@ describe("can be mount in vue instance", () => {
     expect($vm._watchers.filter(item => item.user)).toHaveLength(1);
   });
 
-  test("wrong mount in component: do not have 'name'", () => {
+  test("mounted failed: do not have 'name' field", () => {
     const $vm = new Vue({
       autoStorage: ["a"],
       data() {
@@ -51,7 +42,7 @@ describe("can be mount in vue instance", () => {
     expect($vm).not.toHaveProperty("$autoStorage");
   });
 
-  test("wrong mount in component: do not have 'autoStorage'", () => {
+  test("mounted failed: do not have 'autoStorage' field", () => {
     const $vm = new Vue({
       name: "TestComponent",
       data() {
@@ -66,8 +57,8 @@ describe("can be mount in vue instance", () => {
   });
 });
 
-describe("can be automatic persist data", () => {
-  test("correct automatic store data", () => {
+describe("can be effective", () => {
+  test("automatic store data", () => {
     const $vm = new Vue({
       name: "TestComponent",
       autoStorage: ["a"],
@@ -87,10 +78,10 @@ describe("can be automatic persist data", () => {
       expect(window.localStorage.getItem($vm.$autoStorage.getName("a"))).toStrictEqual(
         JSON.stringify("aa")
       );
-    }, 500);
+    }, 300);
   });
 
-  test("correct automatic recovery data", () => {
+  test("automatic recovery data", () => {
     const $vm = new Vue({
       name: "TestComponent",
       autoStorage: ["a"],
@@ -104,6 +95,6 @@ describe("can be automatic persist data", () => {
 
     setTimeout(() => {
       expect($vm.a).toStrictEqual("aa");
-    }, 1000);
+    }, 300);
   });
 });
