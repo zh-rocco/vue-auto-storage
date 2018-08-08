@@ -2,24 +2,6 @@
 
 > An automatic storage plugin for Vue2, persist state in `data` with localStorage.
 
-## TODO
-
-- [x] DEMO: Support automatic storage and manual recovery.
-- [x] Define API.
-- [x] Support automatic storage and manual recovery.
-- [x] Support automatic storage and recovery.
-- [x] Ensure data uniqueness.
-- [x] Support remove storage, automatic unwatch and destroy data.
-- [x] Support destroy instance.
-- [x] Define and update install options.
-- [x] Support deep level, such as: 'someData.childData', 'someArray[2]'.
-- [x] Customize storage.
-- [x] Add test.
-- [ ] ~~Support v-for.~~
-- [ ] ~~Local registration.~~
-- [ ] Powerful logger.
-- [ ] Avoid duplication watch.
-
 ## Requirements
 
 - [Vue.js 2.x](https://cn.vuejs.org/)
@@ -61,11 +43,7 @@ new Vue({
 
 ### Example
 
-Add `autoStorage` filed to Vue component's options object.
-
-| Description                                        | Type            |
-| :------------------------------------------------- | :-------------- |
-| Declare the keypath of `data` you want to persist. | `Array<string>` |
+Add `autoStorage` filed to Vue component's options object, declare the keypath of `data` you want to persist.
 
 ```javascript
 export default {
@@ -91,12 +69,9 @@ export default {
 
 ## Methods
 
-| Function     | Description                                                   | Parameters Type | Example                             |
-| :----------- | :------------------------------------------------------------ | :-------------- | :---------------------------------- |
-| clear(key)   | Clear storage. If no parameters, clear all AutoStorage cache. | `String`, `N/A` | `this.$autoStorage.clear("a.b")`    |
-| watch(key)   | Add a watcher, to automatic store data.                       | `String`        | `this.$autoStorage.watch("g")`      |
-| unwatch(key) | Remove a watcher. If no parameters, remove all watchers.      | `String`, `N/A` | `this.$autoStorage.unwatch("form")` |
-| destroy(key) | Destroy autoStorage instance.                                 | `N/A`           | `this.$autoStorage.destroy()`       |
+| Function   | Description                                                   | Parameters Type | Example                          |
+| :--------- | :------------------------------------------------------------ | :-------------- | :------------------------------- |
+| clear(key) | Clear storage. If no parameters, clear all AutoStorage cache. | `String`, `N/A` | `this.$autoStorage.clear("a.b")` |
 
 ## Plugin Configurations
 
@@ -106,6 +81,14 @@ export default {
 | storage  | Any object following the Storage protocol. | `Object` | [Customized localStorage](https://github.com/zh-rocco/vue-auto-storage/blob/master/src/better-store.js) |
 
 Stay tuned for more configurations,
+
+## Test
+
+```bash
+yarn test
+```
+
+Unfortunately, `npm run test` has an error, fixing.
 
 ## Dependence
 
