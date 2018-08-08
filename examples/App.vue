@@ -1,22 +1,28 @@
 <template>
-  <el-container class="container">
+  <el-container id="app">
     <el-header height="auto">
-      <h1>
+      <h1 class="header">
         Vue Auto Storage
 
         <a class="star"
            href="https://github.com/zh-rocco/vue-auto-storage"
            target="_blank"
-           title="Go to Star">
-          <i class="el-icon-star-on"
-             style="float: right;"></i>
+           title="Github">
+          <svg height="32"
+               class="icon-github"
+               viewBox="0 0 16 16"
+               version="1.1"
+               width="32"
+               aria-hidden="true">
+            <path fill-rule="evenodd"
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+          </svg>
         </a>
       </h1>
     </el-header>
     <el-main>
-      <!-- <router-view id="app"></router-view> -->
 
-      <el-row :gutter="20">
+      <el-row :gutter="40">
         <el-col :span="12">
           <el-row class="center">
             <h2>Persistent Form</h2>
@@ -36,22 +42,6 @@
                 <el-option label="Zone two"
                            value="beijing"></el-option>
               </el-select>
-            </el-form-item>
-            <el-form-item label="Activity time">
-              <el-col :span="11">
-                <el-date-picker type="date"
-                                placeholder="Pick a date"
-                                v-model="persistentForm.date1"
-                                style="width: 100%;"></el-date-picker>
-              </el-col>
-              <el-col class="line"
-                      :span="2">-</el-col>
-              <el-col :span="11">
-                <el-time-picker type="fixed-time"
-                                placeholder="Pick a time"
-                                v-model="persistentForm.date2"
-                                style="width: 100%;"></el-time-picker>
-              </el-col>
             </el-form-item>
             <el-form-item label="Instant delivery">
               <el-switch v-model="persistentForm.delivery"></el-switch>
@@ -101,22 +91,6 @@
                            value="beijing"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="Activity time">
-              <el-col :span="11">
-                <el-date-picker type="date"
-                                placeholder="Pick a date"
-                                v-model="form.date1"
-                                style="width: 100%;"></el-date-picker>
-              </el-col>
-              <el-col class="line"
-                      :span="2">-</el-col>
-              <el-col :span="11">
-                <el-time-picker type="fixed-time"
-                                placeholder="Pick a time"
-                                v-model="form.date2"
-                                style="width: 100%;"></el-time-picker>
-              </el-col>
-            </el-form-item>
             <el-form-item label="Instant delivery">
               <el-switch v-model="form.delivery"></el-switch>
             </el-form-item>
@@ -148,8 +122,8 @@
 
       <el-row class="mt-l center">
         <el-button type="primary"
-                   @click="handleReload">Test Persistence (Reload Page)</el-button>
-        <el-button @click="handleClearCurrent">Clear Stroage</el-button>
+                   @click="handleReload">Reload Page</el-button>
+        <el-button @click="handleClearCurrent">Reload Page (with clearing storage)</el-button>
       </el-row>
     </el-main>
   </el-container>
@@ -166,8 +140,6 @@ export default {
       persistentForm: {
         name: "",
         region: "",
-        date1: "",
-        date2: "",
         delivery: false,
         type: [],
         resource: "",
@@ -177,8 +149,6 @@ export default {
       form: {
         name: "",
         region: "",
-        date1: "",
-        date2: "",
         delivery: false,
         type: [],
         resource: "",
@@ -190,6 +160,7 @@ export default {
   methods: {
     handleClearCurrent() {
       this.$autoStorage.clear("persistentForm");
+      location.reload();
     },
 
     handleReload() {
@@ -205,16 +176,12 @@ body {
 }
 
 #app {
-  width: 460px;
+  width: 1200px;
+  margin: 0 auto;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-}
-
-.container {
-  width: 1200px;
-  margin: 0 auto;
 }
 
 .center {
@@ -225,13 +192,29 @@ body {
   margin-top: 20px;
 }
 
-.star {
-  color: #606266;
-  transition: color 0.3s;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.star:hover {
-  color: #409eff;
+.star {
+  font-size: 0;
+}
+
+.icon-github {
+  fill: #2c3e50;
+  transition: opacity 0.3s;
+}
+
+.icon-github:hover {
+  opacity: 0.9;
+}
+
+.el-form {
+  padding: 10px;
+  border-radius: 2px;
+  background-color: #f9f9f9;
 }
 
 .el-checkbox {
