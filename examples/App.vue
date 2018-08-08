@@ -121,6 +121,10 @@
       </el-row>
 
       <el-row class="mt-l center">
+        <h3>Just fill in the two forms above and click the button below.</h3>
+      </el-row>
+
+      <el-row class="mt-l center">
         <el-button type="primary"
                    @click="handleReload">Reload Page</el-button>
         <el-button @click="handleClearCurrent">Reload Page (with clearing storage)</el-button>
