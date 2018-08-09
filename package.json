@@ -1,14 +1,13 @@
 {
   "name": "vue-auto-storage",
-  "version": "1.0.0",
-  "description": "An automatic storage plugin for Vue2, persist state in `data` with localStorage.",
+  "version": "1.0.1",
+  "description": "An automatic storage plugin for Vue2, persist the data with localStorage.",
   "main": "dist/vue-auto-storage.js",
   "module": "src/index.js",
   "typings": "types/index.d.ts",
   "scripts": {
-    "dev": "rimraf dist && cross-env NODE_ENV=development rollup -c scripts/rollup.config.prod.js",
+    "dev": "vue-cli-service serve",
     "build": "rimraf dist && cross-env NODE_ENV=production rollup -c scripts/rollup.config.prod.js",
-    "dev:demo": "vue-cli-service serve",
     "build:demo": "rimraf docs && vue-cli-service build",
     "test": "cross-env NODE_ENV=test && jest",
     "release": "standard-version"
@@ -24,9 +23,10 @@
     "url": "https://github.com/zh-rocco/vue-auto-storage.git"
   },
   "keywords": [
-    "persistent-storage",
     "vue-auto-storage",
     "auto-storage",
+    "persistence",
+    "persistent-storage",
     "vue-plugin",
     "vue"
   ],

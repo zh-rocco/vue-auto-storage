@@ -19,8 +19,8 @@ export default {
 
   clear(prefix) {
     if (prefix) {
-      for (const key of Object.keys(_storage)) {
-        if (key.indexOf(prefix) !== -1) _storage.removeItem(key);
+      for (const key in _storage) {
+        _storage.hasOwnProperty(key) && key.includes(prefix) && _storage.removeItem(key);
       }
     } else {
       _storage.clear();
