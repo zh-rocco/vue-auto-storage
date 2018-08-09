@@ -1,6 +1,12 @@
 # vue-auto-storage
 
-> An automatic storage plugin for Vue2, persist state in `data` with localStorage.
+> An automatic storage plugin for Vue2, persist the data with localStorage.
+
+[TOC]
+
+## Demo
+
+[Link](https://zh-rocco.github.io/vue-auto-storage/)
 
 ## Requirements
 
@@ -10,8 +16,8 @@
 
 Obey the following:
 
-- Vue component must has a `name` field.
-- The target component can't used by `v-for`.
+- Vue component must has a unique `name` field.
+- The target component can't used multiple times, eg: not used by `v-for`.
 
 ## Installation
 
@@ -75,12 +81,32 @@ export default {
 
 ## Plugin Configurations
 
-| Property | Description                                | Type     | Default                                                                                                 |
-| :------- | :----------------------------------------- | :------- | :------------------------------------------------------------------------------------------------------ |
-| debounce | Debounce time of watchers, unit: `ms`.     | `Number` | 300                                                                                                     |
-| storage  | Any object following the Storage protocol. | `Object` | [Customized localStorage](https://github.com/zh-rocco/vue-auto-storage/blob/master/src/better-store.js) |
+| Property | Description                                | Type     | Default                                                                                                   |
+| :------- | :----------------------------------------- | :------- | :-------------------------------------------------------------------------------------------------------- |
+| debounce | Debounce time of watchers, unit: `ms`.     | `Number` | 300                                                                                                       |
+| storage  | Any object following the Storage protocol. | `Object` | [Customized localStorage](https://github.com/zh-rocco/vue-auto-storage/blob/master/src/better-storage.js) |
 
 Stay tuned for more configurations,
+
+## Development
+
+```bash
+yarn dev
+```
+
+## Build
+
+build lib
+
+```bash
+yarn build
+```
+
+build demo
+
+```bash
+yarn build:demo
+```
 
 ## Test
 
