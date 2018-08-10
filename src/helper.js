@@ -15,6 +15,18 @@ export function getType(value) {
   return Object.prototype.toString.call(value).slice(8, -1);
 }
 
+export function debounce(fn, delay = 300) {
+  let timer;
+
+  return function(...args) {
+    if (timer) clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
+
 /**
  * Cut object string
  *
@@ -43,16 +55,23 @@ export function cuttingKeyPath(string) {
   }
 }
 
-export function debounce(fn, delay = 300) {
-  let timer;
-
-  return function(...args) {
-    if (timer) clearTimeout(timer);
-
-    timer = setTimeout(() => {
-      fn.apply(this, args);
-    }, delay);
-  };
+/**
+ * Convert path to simple dot-delimited paths
+ *
+ * @param {string} path The path of the property to get.
+ * @returns {string} Returns the resolved value.
+ * @example Converted path.
+ *
+ * dotify("a.b[3]")
+ * // => "a.b.c"
+ *
+ * dotify("[0]")
+ * // => "0"
+ */
+export function dotify(path) {
+  path = path.replace(/\[(\w+)\]/g, ".$1"); // convert indexes to properties
+  path = path.replace(/^\./, ""); // strip a leading dot
+  return path;
 }
 
 /**
@@ -77,8 +96,7 @@ export function debounce(fn, delay = 300) {
  * // => 'default'
  */
 export function parseObjectByKeyPath(object, path, defaultValue) {
-  path = path.replace(/\[(\w+)\]/g, ".$1"); // convert indexes to properties
-  path = path.replace(/^\./, ""); // strip a leading dot
+  path = dotify(path);
 
   const pathArr = path.split(".");
 

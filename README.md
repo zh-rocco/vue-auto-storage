@@ -2,8 +2,6 @@
 
 > An automatic storage plugin for Vue2, persist the data with localStorage.
 
-[TOC]
-
 ## Demo
 
 [Link](https://zh-rocco.github.io/vue-auto-storage/)
@@ -55,23 +53,23 @@ Add `autoStorage` filed to Vue component's options object, declare the keypath o
 export default {
   name: "ComponentName",
 
-  autoStorage: ["form", "a.b", "c[0].d"],
+  autoStorage: ["a.b", "c.0.d", "f"],
 
   data() {
     return {
-      form: { region: "", desc: "" },
-
       a: { b: "" },
 
       c: [{ d: "" }, { e: "" }],
 
-      g: ""
+      f: ""
     };
   },
 
   created() {}
 };
 ```
+
+_If you want persist an array's first item, use `array.0` instead of `array[0]`, [why?](https://github.com/vuejs/vue/blob/653aac2c57d15f0e93a2c1cc7e6fad156658df19/src/core/observer/watcher.js#L87)_
 
 ## Methods
 
