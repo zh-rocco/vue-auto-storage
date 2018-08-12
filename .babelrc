@@ -1,20 +1,13 @@
 {
-  "presets": [
-    [
-      "@babel/env",
-      {
-        "modules": false,
-        "useBuiltIns": "usage"
-      }
-    ]
-  ],
-
-  "plugins": ["@babel/transform-runtime", "@babel/external-helpers"],
-
   "env": {
+    "production": {
+      "presets": [["@babel/env", { "modules": false, "useBuiltIns": "usage" }]],
+      "plugins": ["@babel/transform-runtime", "@babel/external-helpers"]
+    },
+
     "test": {
       "presets": [["@babel/env"]],
-      "plugins": []
+      "plugins": ["@babel/transform-runtime"]
     }
   }
 }
