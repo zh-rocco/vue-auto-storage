@@ -62,6 +62,7 @@ describe("can be effective", () => {
   const getItem = key => JSON.parse(window.localStorage[key]);
 
   test("automatic store", done => {
+    window.localStorage.clear();
     $vm = new Vue({
       name: "TestComponent",
       autoStorage: ["a.b", "c.0.d", "f"],

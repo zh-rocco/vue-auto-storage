@@ -1,5 +1,5 @@
 import * as TYPES from "./type";
-import { debounce } from "./helper";
+import { debounce, dotify } from "./helper";
 
 const NAMESPACES = "__AUTO_STORAGE__";
 
@@ -23,6 +23,8 @@ export default class AutoStorage {
   watch(key) {
     if (!key) return;
     if (this[TYPES.UNWATCH_FNS][key]) return;
+
+    key = dotify(key);
 
     // add watcher
     this[TYPES.UNWATCH_FNS][key] = this.$vm.$watch(
