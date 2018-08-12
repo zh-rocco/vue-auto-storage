@@ -2,9 +2,18 @@
 
 > An automatic storage plugin for Vue2, persist the data with localStorage.
 
+[![vue-js](https://img.shields.io/badge/vue.js-2.x-brightgreen.svg?maxAge=604800)](https://vuejs.org/)
+[![downloads](https://img.shields.io/npm/dt/vue-auto-storage.svg)](http://npm-stats.com/~packages/vue-auto-storage)
+[![GitHub stars](https://img.shields.io/github/stars/zh-rocco/vue-auto-storage.svg)](https://github.com/zh-rocco/vue-auto-storage/stargazers)
+[![devDependencies](https://img.shields.io/david/dev/zh-rocco/vue-auto-storage.svg)](https://david-dm.org/zh-rocco/vue-auto-storage?type=dev)
+[![npm-version](https://img.shields.io/npm/v/vue-auto-storage.svg?maxAge=3600)](https://www.npmjs.com/package/vue-auto-storage)
+[![Github tag](https://img.shields.io/github/tag/zh-rocco/vue-auto-storage.svg?maxAge=3600)](https://github.com/zh-rocco/vue-auto-storage/)
+[![Build Status](https://travis-ci.org/zh-rocco/vue-auto-storage.svg?branch=master)](https://travis-ci.org/zh-rocco/vue-auto-storage)
+[![GitHub license](https://img.shields.io/github/license/zh-rocco/vue-auto-storage.svg)](https://github.com/zh-rocco/vue-auto-storage/blob/master/LICENSE)
+
 ## Demo
 
-[Link](https://zh-rocco.github.io/vue-auto-storage/)
+[Try it out](https://zh-rocco.github.io/vue-auto-storage/)
 
 ## Requirements
 
