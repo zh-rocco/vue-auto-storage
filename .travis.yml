@@ -1,0 +1,23 @@
+language: node_js
+
+notifications:
+  email: false
+
+node_js:
+  - "6"
+  - "8"
+  - "10"
+
+install:
+  - yarn
+
+script:
+  - yarn test
+  - yarn build
+
+branches:
+  only:
+    - master
+
+cache:
+  yarn: true
