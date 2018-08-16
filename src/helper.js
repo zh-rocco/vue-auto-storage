@@ -1,112 +1,53 @@
 export function canWriteStorage(storage) {
   try {
-    storage.setItem("@@", 1);
-    if (storage.getItem("@@") !== 1) {
-      return false;
-    }
-    storage.removeItem("@@");
-    return true;
+    return (
+      typeof storage.clear === "function" &&
+      typeof storage.getItem === "function" &&
+      typeof storage.setItem === "function" &&
+      typeof storage.removeItem === "function"
+    );
   } catch (e) {
     return false;
   }
 }
 
-export function getType(value) {
-  return Object.prototype.toString.call(value).slice(8, -1);
+export function isArray(value) {
+  return Object.prototype.toString.call(value) === "[object Array]";
 }
 
 export function debounce(fn, delay = 300) {
   let timer;
-
   return function(...args) {
-    if (timer) clearTimeout(timer);
-
+    if (timer) {
+      clearTimeout(timer);
+    }
     timer = setTimeout(() => {
       fn.apply(this, args);
     }, delay);
   };
 }
 
-/**
- * Cut object string
- *
- * @export
- * @param {string} string The Object string key need cut.
- * @returns {array} [parentStringKey, selfStringKey]
- * @example
- *
- * cuttingKeyPath("a.b.c")
- * // => ["a.b", "c"]
- *
- * cuttingKeyPath("a.b[3]")
- * // => ["a.b", "3"]
- */
-export function cuttingKeyPath(string) {
-  const REGEX = /(\[\w+\])$/g;
-  if (REGEX.test(string)) {
-    // such as: "a.b[1]"
-    const index = string.lastIndexOf("[");
-
-    return [string.slice(0, index), string.slice(index + 1, -1)];
-  } else {
-    // such as: "a.b.c"
-    const index = string.lastIndexOf(".");
-    return [string.slice(0, index), string.slice(index + 1)];
-  }
-}
-
-/**
- * Convert path to simple dot-delimited paths
- *
- * @param {string} path The path of the property to get.
- * @returns {string} Returns the resolved value.
- * @example Converted path.
- *
- * dotify("a.b[3]")
- * // => "a.b.c"
- *
- * dotify("[0]")
- * // => "0"
- */
 export function dotify(path) {
-  path = path.replace(/\[(\w+)\]/g, ".$1"); // convert indexes to properties
-  path = path.replace(/^\./, ""); // strip a leading dot
-  return path;
+  return path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "");
 }
 
-/**
- * Gets the value at `path` of `object`. If the resolved value is
- * `undefined`, the `defaultValue` is returned in its place.
- *
- * @param {Object} object The object to query.
- * @param {string} path The path of the property to get.
- * @param {*} [defaultValue] The value returned for `undefined` resolved values.
- * @returns {*} Returns the resolved value.
- * @example
- *
- * const object = { 'a': [{ 'b': { 'c': 3 } }] }
- *
- * get(object, 'a[0].b.c')
- * // => 3
- *
- * get(object, ['a', '0', 'b', 'c'])
- * // => 3
- *
- * get(object, 'a.b.c', 'default')
- * // => 'default'
- */
-export function parseObjectByKeyPath(object, path, defaultValue) {
-  path = dotify(path);
+export function get(object, path) {
+  return dotify(path)
+    .split(".")
+    .reduce((prev, curr) => {
+      if (typeof prev === "object" && prev.hasOwnProperty(curr)) {
+        return prev[curr];
+      } else {
+        return;
+      }
+    }, object);
+}
 
-  const pathArr = path.split(".");
-
-  for (const value of pathArr) {
-    if (value in object) {
-      object = object[value];
-    } else {
-      return defaultValue;
-    }
+export function set(object, path, value) {
+  const paths = dotify(path).split(".");
+  const last = paths.pop();
+  for (let i = 0, len = paths.length; i < len; i++) {
+    object = object[paths[i]];
   }
-
-  return object;
+  object[last] = value;
 }

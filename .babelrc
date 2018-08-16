@@ -1,8 +1,8 @@
 {
   "env": {
     "production": {
-      "presets": [["@babel/env", { "modules": false, "useBuiltIns": "usage" }]],
-      "plugins": ["@babel/transform-runtime", "@babel/external-helpers"]
+      "presets": [["@babel/env", { "modules": false }]],
+      "plugins": []
     },
 
     "test": {

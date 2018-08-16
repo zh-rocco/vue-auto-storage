@@ -8,7 +8,7 @@ node_js:
 
 script:
   - yarn test
-  - yarn build
+  - yarn build:lib
 
 branches:
   only:

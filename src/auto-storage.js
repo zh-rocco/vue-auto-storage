@@ -1,63 +1,61 @@
-import * as TYPES from "./type";
-import { debounce, dotify } from "./helper";
+import { debounce, dotify, get } from "./helper";
 
 const NAMESPACES = "__AUTO_STORAGE__";
 
 export default class AutoStorage {
   constructor($vm) {
-    this.$vm = $vm;
-    this[TYPES.UNWATCH_FNS] = Object.create(null);
-    this[TYPES.STORAGE] = $vm.__AUTO_STORAGE_OPTIONS__.storage;
-    this[TYPES.DEBOUNCE_TIME] = $vm.__AUTO_STORAGE_OPTIONS__.debounce;
-    this[TYPES.PREFIX] = NAMESPACES + $vm.$options.name.toUpperCase() + "__";
+    this._vm = $vm;
+    this._unwatchFns = Object.create(null);
+    this._storage = $vm.__AUTO_STORAGE_OPTIONS__.storage;
+    this._debounce = $vm.__AUTO_STORAGE_OPTIONS__.debounce;
+    this._prefix = NAMESPACES + $vm.$options.name.toUpperCase() + "__";
   }
 
   getName(key) {
-    return this[TYPES.PREFIX] + key.toUpperCase();
+    return this._prefix + key.toUpperCase();
   }
 
   getItem(key) {
-    return this[TYPES.STORAGE].getItem(this.getName(key));
+    return this._storage.getItem(this.getName(key));
   }
 
   watch(key) {
-    if (!key) return;
-    if (this[TYPES.UNWATCH_FNS][key]) return;
-
+    if (typeof key !== "string") return;
     key = dotify(key);
-
-    // add watcher
-    this[TYPES.UNWATCH_FNS][key] = this.$vm.$watch(
+    if (this._unwatchFns[key] || get(this._vm, key) === undefined) return;
+    this._unwatchFns[key] = this._vm.$watch(
       key,
       debounce(newVal => {
-        this[TYPES.STORAGE].setItem(this.getName(key), newVal);
-      }, this[TYPES.DEBOUNCE_TIME]),
+        this._storage.setItem(this.getName(key), newVal);
+      }, this._debounce),
       { deep: true }
     );
   }
 
   unwatch(key) {
     if (key === undefined) {
-      for (const key in this[TYPES.UNWATCH_FNS]) {
-        this[TYPES.UNWATCH_FNS][key]();
+      for (const key in this._unwatchFns) {
+        this._unwatchFns[key]();
       }
-      delete this[TYPES.UNWATCH_FNS];
-      this[TYPES.UNWATCH_FNS] = Object.create(null);
-    } else if (key && key in this[TYPES.UNWATCH_FNS]) {
-      this[TYPES.UNWATCH_FNS][key]();
-      delete this[TYPES.UNWATCH_FNS][key];
+      delete this._unwatchFns;
+      this._unwatchFns = Object.create(null);
+    } else if (key in this._unwatchFns) {
+      this._unwatchFns[key]();
+      delete this._unwatchFns[key];
     }
   }
 
   clear(key) {
-    key ? this[TYPES.STORAGE].removeItem(this.getName(key)) : this[TYPES.STORAGE].clear(NAMESPACES);
+    key === undefined
+      ? this._storage.clear(NAMESPACES)
+      : this._storage.removeItem(this.getName(key));
   }
 
   destroy() {
     this.unwatch();
-    delete this.$vm;
-    delete this[TYPES.PREFIX];
-    delete this[TYPES.STORAGE];
-    delete this[TYPES.DEBOUNCE_TIME];
+    delete this._vm;
+    delete this._prefix;
+    delete this._storage;
+    delete this._debounce;
   }
 }

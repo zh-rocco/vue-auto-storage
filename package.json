@@ -1,15 +1,16 @@
 {
   "name": "vue-auto-storage",
-  "version": "1.0.2",
+  "version": "1.8.0",
   "description": "An automatic storage plugin for Vue2, persist the data with localStorage.",
   "main": "dist/vue-auto-storage.js",
   "module": "src/index.js",
   "typings": "types/index.d.ts",
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "rimraf dist && cross-env NODE_ENV=production rollup -c scripts/rollup.config.prod.js",
-    "build:demo": "rimraf docs && vue-cli-service build",
-    "test": "cross-env NODE_ENV=test && jest"
+    "build:lib": "rimraf dist && cross-env NODE_ENV=production rollup -c scripts/rollup.config.prod.js",
+    "build:docs": "rimraf docs && vue-cli-service build",
+    "test": "cross-env NODE_ENV=test && jest",
+    "deploy": "npm run test && npm run build:lib && npm run build:docs"
   },
   "files": [
     "README.md",
@@ -38,13 +39,12 @@
     "url": "https://github.com/zh-rocco/vue-auto-storage/issues"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.0.0-rc.1",
-    "@babel/plugin-external-helpers": "^7.0.0-rc.1",
     "@babel/plugin-transform-runtime": "^7.0.0-rc.1",
     "@babel/preset-env": "^7.0.0-rc.1",
     "@babel/runtime": "^7.0.0-rc.1",

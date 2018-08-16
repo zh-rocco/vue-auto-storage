@@ -12,8 +12,6 @@ export default {
     resolve(),
     commonjs(),
     babel({
-      runtimeHelpers: true,
-      externalHelpers: true,
       exclude: "node_modules/**" // only transpile our source code
     })
   ]

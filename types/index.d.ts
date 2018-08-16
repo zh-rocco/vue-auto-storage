@@ -1,11 +1,11 @@
-interface BetterStorage {
-  getItem: (key: string) => any;
-  setItem: (key: string, value: any) => void;
-  removeItem: (key?: string) => void;
-  clear: (key?: string) => void;
+interface Storage {
+  getItem: (key: string) => string;
+  setItem: (key: string, value: string) => void;
+  removeItem: (key: string) => void;
+  clear: () => void;
 }
 
 interface Options {
   debounce?: number;
-  storage?: BetterStorage;
+  storage?: Storage;
 }

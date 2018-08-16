@@ -17,7 +17,14 @@
 
 ## Requirements
 
-- [Vue.js 2.x](https://cn.vuejs.org/)
+- [`Vue.js 2.x`](https://cn.vuejs.org/)
+- `IE9 +`
+
+## Advantage
+
+- Simple API.
+- Small bundle size: 3.77KB (1.39KB gzipped).
+- No dependencies.
 
 ## Attention
 
@@ -93,7 +100,7 @@ _If you want persist an array's first item, use `array.0` instead of `array[0]`,
 | debounce | Debounce time of watchers, unit: `ms`.     | `Number` | 300                                                                                                       |
 | storage  | Any object following the Storage protocol. | `Object` | [Customized localStorage](https://github.com/zh-rocco/vue-auto-storage/blob/master/src/better-storage.js) |
 
-Stay tuned for more configurations,
+Stay tuned for more configurations.
 
 ## Development
 
@@ -103,16 +110,8 @@ yarn dev
 
 ## Build
 
-build lib
-
 ```bash
-yarn build
-```
-
-build demo
-
-```bash
-yarn build:demo
+yarn build:lib
 ```
 
 ## Test
@@ -121,9 +120,9 @@ yarn build:demo
 yarn test
 ```
 
-## Dependence
+## Todo Features
 
-none
+- Support Vuex.
 
 ## License
 
