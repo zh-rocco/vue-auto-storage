@@ -5,10 +5,6 @@ notifications:
 
 node_js:
   - "8"
-  - "10"
-
-install:
-  - yarn
 
 script:
   - yarn test
@@ -17,6 +13,3 @@ script:
 branches:
   only:
     - master
-
-cache:
-  yarn: true
