@@ -20,7 +20,7 @@
 - [`Vue.js 2.x`](https://cn.vuejs.org/)
 - `IE9 +`
 
-## Advantage
+## Advantages
 
 - Simple API.
 - Small bundle size: 3.77KB (1.39KB gzipped).
@@ -85,7 +85,7 @@ export default {
 };
 ```
 
-_If you want persist an array's first item, use `array.0` instead of `array[0]`, [why?](https://github.com/vuejs/vue/blob/653aac2c57d15f0e93a2c1cc7e6fad156658df19/src/core/observer/watcher.js#L87)_
+~~If you want persist an array's first item, use `array.0` instead of `array[0]`, [why?](https://github.com/vuejs/vue/blob/653aac2c57d15f0e93a2c1cc7e6fad156658df19/src/core/observer/watcher.js#L86-L89)~~
 
 ## Methods
 
@@ -95,10 +95,10 @@ _If you want persist an array's first item, use `array.0` instead of `array[0]`,
 
 ## Plugin Configurations
 
-| Property | Description                                | Type     | Default                                                                                                   |
-| :------- | :----------------------------------------- | :------- | :-------------------------------------------------------------------------------------------------------- |
-| debounce | Debounce time of watchers, unit: `ms`.     | `Number` | 300                                                                                                       |
-| storage  | Any object following the Storage protocol. | `Object` | [Customized localStorage](https://github.com/zh-rocco/vue-auto-storage/blob/master/src/better-storage.js) |
+| Property | Description                                | Type                                                                                             | Default        |
+| :------- | :----------------------------------------- | :----------------------------------------------------------------------------------------------- | :------------- |
+| debounce | Debounce time of watchers, unit: `ms`.     | `Number`                                                                                         | 300            |
+| storage  | Any object following the Storage protocol. | `Object` [more](https://github.com/zh-rocco/vue-auto-storage/blob/master/types/index.d.ts#L1-L6) | `localStorage` |
 
 Stay tuned for more configurations.
 
