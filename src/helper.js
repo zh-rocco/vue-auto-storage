@@ -32,6 +32,7 @@ export function dotify(path) {
 }
 
 export function get(object, path) {
+  if (typeof path !== "string") return;
   return dotify(path)
     .split(".")
     .reduce((prev, curr) => {
@@ -44,9 +45,11 @@ export function get(object, path) {
 }
 
 export function set(object, path, value) {
+  if (typeof path !== "string") return;
   const paths = dotify(path).split(".");
   const last = paths.pop();
   for (let i = 0, len = paths.length; i < len; i++) {
+    if (typeof object !== "object") return;
     object = object[paths[i]];
   }
   object[last] = value;
