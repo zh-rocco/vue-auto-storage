@@ -23,7 +23,7 @@
 ## Advantages
 
 - Simple API.
-- Small bundle size: 3.77KB (1.39KB gzipped).
+- Small bundle size: 3.86KB (1.42KB gzipped).
 - No dependencies.
 
 ## Attention

@@ -139,7 +139,7 @@ export default {
 
   autoStorage: ["persistentForm"],
 
-  data() {
+  data: function() {
     return {
       persistentForm: {
         name: "",
@@ -162,12 +162,12 @@ export default {
   },
 
   methods: {
-    handleClearCurrent() {
+    handleClearCurrent: function() {
       this.$autoStorage.clear("persistentForm");
       location.reload();
     },
 
-    handleReload() {
+    handleReload: function() {
       location.reload();
     }
   }
