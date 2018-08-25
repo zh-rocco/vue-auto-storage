@@ -9,6 +9,5 @@ Vue.use(ELEMENT);
 Vue.use(AutoStorage);
 
 new Vue({
-  // router,
   render: h => h(App)
 }).$mount("#app");
