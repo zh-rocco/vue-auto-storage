@@ -122,3 +122,21 @@ describe("can be effective", () => {
     $vm.$destroy();
   });
 });
+
+describe("can not be effective", () => {
+  test("do not store: keypath is not exist", () => {
+    window.localStorage.clear();
+    $vm = new Vue({
+      name: "TestComponent",
+      autoStorage: ["x.y", "x.y.z", "z"],
+      data: {
+        a: { b: "" },
+        c: [{ d: "" }, { e: "" }],
+        f: {}
+      }
+    });
+
+    expect($vm._watchers.filter(item => item.user)).toHaveLength(0);
+    $vm.$destroy();
+  });
+});
