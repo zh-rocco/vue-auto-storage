@@ -85,6 +85,21 @@ export default {
 };
 ```
 
+Use in typeScrip:
+
+```typescript
+import { Component, Vue } from 'vue-property-decorator';
+
+@Component({
+  autoStorage: ["a.b", "c.0.d", "f"],
+})
+export default class ComponentName extends Vue {
+  private a = { b: "" };
+  private c = [{ d: "" }, { e: "" }];
+  private f = "";
+}
+```
+
 ~~If you want persist an array's first item, use `array.0` instead of `array[0]`, [why?](https://github.com/vuejs/vue/blob/653aac2c57d15f0e93a2c1cc7e6fad156658df19/src/core/observer/watcher.js#L86-L89)~~
 
 ## Methods
