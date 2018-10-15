@@ -85,7 +85,7 @@ export default {
 };
 ```
 
-Use in typeScrip:
+Use in TypeScript:
 
 ```typescript
 import { Component, Vue } from 'vue-property-decorator';
@@ -93,7 +93,7 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component({
   autoStorage: ["a.b", "c.0.d", "f"],
 })
-export default class ComponentName extends Vue {
+export default class MyComponent extends Vue {
   private a = { b: "" };
   private c = [{ d: "" }, { e: "" }];
   private f = "";
