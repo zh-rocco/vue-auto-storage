@@ -15,15 +15,15 @@ describe("can be mounted in component", () => {
       data: {
         a: { b: "" },
         c: [{ d: "" }, { e: "" }],
-        f: {}
-      }
+        f: {},
+      },
     });
 
     expect($vm.$options).toHaveProperty("autoStorage");
     expect($vm.$options.autoStorage).toEqual(expect.arrayContaining(["a.b", "c.0.d", "f"]));
     expect($vm).toHaveProperty("$autoStorage");
     expect($vm.$autoStorage).toHaveProperty("watch");
-    expect($vm._watchers.filter(item => item.user)).toHaveLength(3);
+    expect($vm._watchers.filter((item) => item.user)).toHaveLength(3);
     $vm.$destroy();
   });
 
@@ -33,8 +33,8 @@ describe("can be mounted in component", () => {
       data: {
         a: { b: "" },
         c: [{ d: "" }, { e: "" }],
-        f: {}
-      }
+        f: {},
+      },
     });
 
     expect($vm.$options).toHaveProperty("autoStorage");
@@ -48,8 +48,8 @@ describe("can be mounted in component", () => {
       data: {
         a: { b: "" },
         c: [{ d: "" }, { e: "" }],
-        f: {}
-      }
+        f: {},
+      },
     });
 
     expect($vm.$options).not.toHaveProperty("autoStorage");
@@ -59,9 +59,9 @@ describe("can be mounted in component", () => {
 });
 
 describe("can be effective", () => {
-  const getItem = key => JSON.parse(window.localStorage[key]);
+  const getItem = (key) => JSON.parse(window.localStorage[key]);
 
-  test("automatic store", done => {
+  test("automatic store", (done) => {
     window.localStorage.clear();
     $vm = new Vue({
       name: "TestComponent",
@@ -69,8 +69,8 @@ describe("can be effective", () => {
       data: {
         a: { b: "" },
         c: [{ d: "" }, { e: "" }],
-        f: {}
-      }
+        f: {},
+      },
     });
 
     $vm.a.b = "someValue";
@@ -94,8 +94,8 @@ describe("can be effective", () => {
       data: {
         a: { b: "" },
         c: [{ d: "" }, { e: "" }],
-        f: {}
-      }
+        f: {},
+      },
     });
 
     expect($vm.a.b).toStrictEqual("someValue");
@@ -112,8 +112,8 @@ describe("can be effective", () => {
       data: {
         a: { b: "" },
         c: [{ d: "" }, { e: "" }],
-        f: {}
-      }
+        f: {},
+      },
     });
 
     expect($vm.a.b).toEqual("");
@@ -132,11 +132,11 @@ describe("can not be effective", () => {
       data: {
         a: { b: "" },
         c: [{ d: "" }, { e: "" }],
-        f: {}
-      }
+        f: {},
+      },
     });
 
-    expect($vm._watchers.filter(item => item.user)).toHaveLength(0);
+    expect($vm._watchers.filter((item) => item.user)).toHaveLength(0);
     $vm.$destroy();
   });
 });

@@ -26,7 +26,7 @@ const CustomStorage = {
     } else {
       window.localStorage.clear();
     }
-  }
+  },
 };
 
 Vue.use(VueAutoStorage, { debounce: 100, storage: CustomStorage });

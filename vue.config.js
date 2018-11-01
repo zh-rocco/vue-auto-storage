@@ -5,13 +5,13 @@ module.exports = {
     index: {
       entry: "examples/main.js",
       template: "examples/index.html",
-      filename: "index.html"
-    }
+      filename: "index.html",
+    },
   },
   configureWebpack: {
     externals: {
       vue: "Vue",
-      "element-ui": "ELEMENT"
-    }
-  }
+      "element-ui": "ELEMENT",
+    },
+  },
 };

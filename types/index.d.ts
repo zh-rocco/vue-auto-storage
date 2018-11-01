@@ -1,5 +1,5 @@
-import _Vue, { ComponentOptions } from 'vue';
-import { VueConstructor } from 'vue/types/vue';
+import _Vue, { ComponentOptions } from "vue";
+import { VueConstructor } from "vue/types/vue";
 
 export interface Storage {
   getItem: (key: string) => string;
@@ -13,13 +13,13 @@ export interface Options {
   storage?: Storage;
 }
 
-declare module 'vue/types/vue' {
+declare module "vue/types/vue" {
   interface Vue {
     $autoStorage: any;
   }
 }
 
-declare module 'vue/types/options' {
+declare module "vue/types/options" {
   interface ComponentOptions<V extends _Vue> {
     autoStorage?: any;
   }

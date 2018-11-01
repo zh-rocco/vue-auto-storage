@@ -25,10 +25,10 @@ export default class AutoStorage {
     if (this._unwatchFns[key] || get(this._vm, key) === undefined) return;
     this._unwatchFns[key] = this._vm.$watch(
       key,
-      debounce(newVal => {
+      debounce((newVal) => {
         this._storage.setItem(this.getName(key), newVal);
       }, this._debounce),
-      { deep: true }
+      { deep: true },
     );
   }
 

@@ -24,6 +24,6 @@ export default function createStorage(storage) {
       } else {
         storage.clear();
       }
-    }
+    },
   };
 }

@@ -11,5 +11,5 @@ export default {
 
   beforeDestroy() {
     destroy(this);
-  }
+  },
 };

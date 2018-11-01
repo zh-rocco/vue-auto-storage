@@ -15,7 +15,7 @@ const VueAutoStorage = {
     defaultOptions.storage = createStorage(storage);
     Object.defineProperty(Vue.prototype, "__AUTO_STORAGE_OPTIONS__", { value: defaultOptions });
     Vue.mixin(mixin);
-  }
+  },
 };
 
 if (typeof window !== "undefined" && window.Vue) {

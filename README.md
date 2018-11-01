@@ -57,7 +57,7 @@ Vue.use(AutoStorage);
 // Vue.use(AutoStorage, { debounce: 100 });
 
 new Vue({
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");
 ```
 
@@ -77,18 +77,18 @@ export default {
 
       c: [{ d: "" }, { e: "" }],
 
-      f: ""
+      f: "",
     };
   },
 
-  created() {}
+  created() {},
 };
 ```
 
 Use in TypeScript:
 
 ```typescript
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({
   autoStorage: ["a.b", "c.0.d", "f"],

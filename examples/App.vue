@@ -147,7 +147,7 @@ export default {
         delivery: false,
         type: [],
         resource: "",
-        desc: ""
+        desc: "",
       },
 
       form: {
@@ -156,8 +156,8 @@ export default {
         delivery: false,
         type: [],
         resource: "",
-        desc: ""
-      }
+        desc: "",
+      },
     };
   },
 
@@ -169,8 +169,8 @@ export default {
 
     handleReload: function() {
       location.reload();
-    }
-  }
+    },
+  },
 };
 </script>
 

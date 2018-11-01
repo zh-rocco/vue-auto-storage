@@ -12,5 +12,5 @@ Vue.use(AutoStorage);
 new Vue({
   render: function(h) {
     return h(App);
-  }
+  },
 }).$mount("#app");
