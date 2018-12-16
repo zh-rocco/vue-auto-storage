@@ -1,6 +1,6 @@
 {
   "name": "vue-auto-storage",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "An automatic storage plugin for Vue2, persist the data with localStorage.",
   "main": "dist/vue-auto-storage.js",
   "typings": "types/index.d.ts",
