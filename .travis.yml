@@ -1,0 +1,15 @@
+language: node_js
+
+notifications:
+  email: false
+
+node_js:
+  - "8"
+
+script:
+  - yarn test
+  - yarn build
+
+branches:
+  only:
+    - master
