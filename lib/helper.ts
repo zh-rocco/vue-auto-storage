@@ -3,7 +3,7 @@ import { Procedure, StoragePlus, CommonObject } from "./types";
 
 export function getTag(value: any): string {
   const type = Object.prototype.toString.call(value);
-  return (type.match(/(A-Z)\w+/g) as string[])[0];
+  return (type.match(/[A-Z]\w+/g) as string[])[0];
 }
 
 export function isString(value: any): boolean {
@@ -37,7 +37,7 @@ export function validateStorage(storage: StoragePlus): boolean {
 }
 
 export function needAutoStorage($vm: Vue): boolean {
-  return "autoStorage" in $vm;
+  return $vm.$options.hasOwnProperty("autoStorage");
 }
 
 export function debounce(fn: Procedure, delay = 300): Procedure {
@@ -63,6 +63,7 @@ export function dotting(path: string): string[] {
 
 export function get(obj: CommonObject, path: string): any {
   return dotting(path).reduce((prev, curr) => {
+    window.console.log(prev);
     if (isObject(prev) && prev.hasOwnProperty(curr)) {
       return prev[curr];
     } else {

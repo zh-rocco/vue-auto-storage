@@ -1,33 +1,22 @@
-import { StoragePlus } from "./types.d";
-
-export default function createStorage(storage: Storage): StoragePlus {
+export function createStorage(storage: Storage) {
   return {
-    setItem(key: string, value: any) {
-      // if value is undefined, convert to null
-      // JSON.parse(JSON.stringify(undefined)) => SyntaxError
-      storage.setItem(key, JSON.stringify(value === undefined ? null : value));
+    setItem: (key: any, value: any) => {
+      storage.setItem(key, JSON.stringify(value));
     },
 
-    getItem(key: string) {
+    getItem: (key: any) => {
       // if [key] not exist in localStorage, localStorage[key] get undefined, but localStorage.getItem(key) get null.
-      const value = storage[key];
-      return value === undefined ? undefined : JSON.parse(value);
+      try {
+        return JSON.parse(storage[key]);
+      } catch (error) {} // tslint:disable-line
     },
 
-    removeItem(key: string) {
+    removeItem(key: any) {
       storage.removeItem(key);
     },
 
-    clear(prefix?: string) {
-      if (prefix) {
-        for (const key in storage) {
-          if (storage.hasOwnProperty(key) && key.indexOf(prefix) !== -1) {
-            storage.removeItem(key);
-          }
-        }
-      } else {
-        storage.clear();
-      }
+    clear() {
+      storage.clear();
     },
   };
 }

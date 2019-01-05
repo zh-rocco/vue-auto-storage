@@ -12,7 +12,7 @@ export interface StoragePlus extends CommonObject {
   setItem: (key: string, value: any) => void;
   getItem: (key: string) => string | null | undefined;
   removeItem: (key: string) => void;
-  clear: (prefix: string) => void;
+  clear: (prefix?: string) => void;
 }
 
 export interface InstallOptions extends CommonObject {
