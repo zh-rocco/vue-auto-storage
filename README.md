@@ -9,7 +9,7 @@
 [![npm-version](https://img.shields.io/npm/v/vue-auto-storage.svg?maxAge=3600)](https://www.npmjs.com/package/vue-auto-storage)
 [![Github tag](https://img.shields.io/github/tag/zh-rocco/vue-auto-storage.svg?maxAge=3600)](https://github.com/zh-rocco/vue-auto-storage/)
 [![Build Status](https://travis-ci.org/zh-rocco/vue-auto-storage.svg?branch=master)](https://travis-ci.org/zh-rocco/vue-auto-storage)
-[![GitHub license](https://img.shields.io/github/license/zh-rocco/vue-auto-storage.svg)](https://github.com/zh-rocco/vue-auto-storage/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/zh-rocco/vue-auto-storage.svg)](https://github.com/zh-rocco/vue-auto-storage/blob/master/LICENSE) [![Greenkeeper badge](https://badges.greenkeeper.io/zh-rocco/vue-auto-storage.svg)](https://greenkeeper.io/)
 
 ## Demo
 
